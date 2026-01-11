@@ -18,6 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+ìmport es.uvigo.dagss.recetas.util;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
@@ -152,7 +153,9 @@ public abstract class Usuario implements Serializable {
 				&& Objects.equals(login, other.login);
 	}
 
-
-    
- 
+	@Override
+	public String toString(){
+		return "id=" + id + "login=" + login + ", fecha alta=" + fechaAlta + ", ultimo acceso=" + ultimoAcceso + ", activo=" + activo + ", tipo= ";
+	}
 }
+
