@@ -4,5 +4,7 @@ package es.uvigo.dagss.recetas.daos;
 
 @Repository
 public interface FarmaciaDAO extends JpaRepository<Farmacia, Long>{
-
+	List<Farmacia> findByNombreContainingIgnoreCaseOrLocalidadContainingIgnoreCase(String nombre, String localidad);
+	List<Farmacia> findByProvinciaIgnoreCase(String provincia);
+	Optional<Farmacia> findByLogin(String login);
 }

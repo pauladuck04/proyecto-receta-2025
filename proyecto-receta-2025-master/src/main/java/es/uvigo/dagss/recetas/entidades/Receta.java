@@ -33,21 +33,21 @@ public class Receta {
 	@NotNull
 	private int cantidad;
 
-	public enum Estado{
+	public enum EstadoReceta{
 		PLANIFICADA,
 		SERVIDA,
 		ANULADA
 	}
 
 	@Enumerated(EnumType.STRING)
-	private Estado estado;
+	private EstadoReceta estado;
 
 	@ManyToOne(targetEntity = Farmacia.class)
 	private Farmacia farmacia;
 
 	public Receta(){  }
 
-	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, Estado estado){
+	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, EstadoReceta estado){
 		this.prescripcion = prescripcion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -56,7 +56,7 @@ public class Receta {
 		this.farmacia = null;
 	}
 	
-	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, Estado estado, Farmacia farmacia){
+	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, EstadoReceta estado, Farmacia farmacia){
 		this.prescripcion = prescripcion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -85,7 +85,7 @@ public class Receta {
 		return estado;
 	}
 
-	public void setEstado(Estado estado){
+	public void setEstado(EstadoReceta estado){
 		this.estado = estado;
 	}
 

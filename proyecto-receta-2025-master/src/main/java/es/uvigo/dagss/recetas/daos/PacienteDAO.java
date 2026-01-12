@@ -9,4 +9,5 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long>{
 	List<Paciente> findByCentroSaludIdAndMedicoId(Long centroSaludId, Long medicoId);
 	Optional<Paciente> findByDni(String dni);
 	Optional<Paciente> findByNumTarjetaSanitaria(String numTarjetaSanitaria);
+	Optional<Paciente> findByLogin(String login);
 }

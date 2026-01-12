@@ -13,15 +13,10 @@ import es.uvigo.dagss.recetas.entidades.Cita;
 
 @Repository
 public interface CitaDAO extends JpaRepository<Cita, Long> {
-	Cita findByFechaHora(Date fechaHora);
-	List<Cita> findByMedico(Medico medico);
-	void deleteByFechaHora(Date hora);
-
-	List<Cita> findByFechaHoraBetweenOrderByFechaHoraAsc(Date inicio, Date fin);
-	List<Cita> findByFechaHoraBetweenAndMedicoOrderByFechaHora(Medico medico, Date inicio, Date fin);
-	List<Cita> findByFechaHoraBetweenAndPacienteOrderByFechaHora(Paciente paciente, Date inicio, Date fin);
-	
-	List<Cita> findByPacienteAndEstadoCita(Paciente paciente, String estado);
-	List<Cita> findByMedicoAndFechaHoraAndEstadoCita(Medico medico, String estado, Date inicio, Date fin);
-	List<Cita> findByMedicoAndFecha(Medico medico, LocalDate fecha);
+	List<Cita> findByFechaOrderByHoraInicioAsc(LocalDate fecha);
+	List<Cita> findByFechaAndMedicoIdOrderByHoraInicioAsc(Long medicoId, LocalDate fecha);
+	List<Cita> findByFechaAndPacienteIdOrderByHoraInicioAsc(Long pacienteId, LocalDate fecha);
+	List<Cita> findByPacienteIdAndEstadoOrderByFechaAscHoraInicioAsc(Long pacienteId, EstadoCita estado);
+	List<Cita> findByMedicoIdAndFechaAndEstado(Long medicoId, LocalDate fecha, EstadoCita estado);
+	Optional<Cita> findByMedicoIdAndFechaAndHoraInicio(Long medicoId, LocalDate fecha, LocalTime horaInicio);
 }

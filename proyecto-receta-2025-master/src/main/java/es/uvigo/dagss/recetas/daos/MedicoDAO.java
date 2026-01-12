@@ -4,4 +4,5 @@ package es.uvigo.dagss.recetas.daos;
 public interface MedicoDAO extends JpaRepository<Medico, Long>{
 	List<Medico> findByNombreContainingIgnoreCaseOrCentroSaludLocalidadContainingIgnoreCase(string nombre, String localidad);
 	List<Medico> findByCentroSaludId(Long centroSaludId);
+	Optional<Medico> findByLogin(String login);
 }
