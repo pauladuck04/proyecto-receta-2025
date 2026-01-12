@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.daos;
 
+@Repository
 public interface MedicamentoDAO extends JpaRepository<Medicamento, Long> {
 	List<Medicamento> findByNombreComercialContaining(String nombreComercial);
 	List<Medicamento> findByPrincipioActivoContaining(String principioActivo);

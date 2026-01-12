@@ -11,6 +11,7 @@ import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 import es.uvigo.dagss.recetas.entidades.Cita;
 
+@Repository
 public interface CitaDAO extends JpaRepository<Cita, Long> {
 	Cita findByFechaHora(Date fechaHora);
 	List<Cita> findByMedico(Medico medico);

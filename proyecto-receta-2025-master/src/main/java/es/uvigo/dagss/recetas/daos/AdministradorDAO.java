@@ -3,6 +3,9 @@ package es.uvigo.dagss.recetas.daos;
 import es.uvigo.dagss.recetas.entidades.Administrador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+@Repository
 public interface AdministradorDAO extends JpaRepository<Administrador, Long> {
-	Administrador findByEmail(String email);
+	Optional<Administrador> findByLogin(String login);
+	List<Administrador> findByNombreContainingIgnoreCase(String nombre);
+	List<Administrador> findByEmailContainingIgnoreCase(String email);
 }
