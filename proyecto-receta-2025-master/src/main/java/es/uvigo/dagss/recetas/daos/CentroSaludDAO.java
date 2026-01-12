@@ -7,4 +7,5 @@ import es.uvigo.dagss.recetas.entidades.CentroSalud;
 public interface CentroSaludDAO extends JpaRepository<CentroSalud, Long> {
 	List<CentroSalud> findByNombreContainingIgnoreCaseOrLocalidadContainingIgnoreCase(String nombre, String localidad);
 	List<CentroSalud> findByActivoTrue();
+	Optional<CentroSalud> findById(Long id);
 }
