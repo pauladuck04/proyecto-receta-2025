@@ -23,10 +23,10 @@ public class PacienteService{
 
 	public PacienteService(){ }
 
-	public Paciente crearPaciente(Paciente paciente){
+	public void crearPaciente(Paciente paciente){
 		String dni = medico.getDni();
 		paciente.setPassword(dni);	
-		return pacienteDAO.save(paciente);
+		pacienteDAO.save(paciente);
 	}
 
 	public Paciente actualizarPaciente(Paciente paciente){

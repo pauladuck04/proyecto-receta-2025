@@ -16,7 +16,9 @@ public class FarmaciaService{
 
 	public FarmaciaService(){ }
 
-	public void crearFarmacia(Farmacia farmacia){
+	public Farmacia crearFarmacia(Farmacia farmacia){
+		String numColegiado = farmacia.getNumColegiado();
+		farmacia.setPassword(numColegiado);	
 		farmaciaDAO.save(farmacia);
 	}
 
