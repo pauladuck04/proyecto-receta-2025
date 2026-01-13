@@ -8,4 +8,5 @@ public interface CentroSaludDAO extends JpaRepository<CentroSalud, Long> {
 	List<CentroSalud> findByNombreContainingIgnoreCaseOrLocalidadContainingIgnoreCase(String nombre, String localidad);
 	List<CentroSalud> findByActivoTrue();
 	Optional<CentroSalud> findById(Long id);
+	List<CentroSalud> findByDireccionProvinciaIgnoreCase(String provincia);
 }

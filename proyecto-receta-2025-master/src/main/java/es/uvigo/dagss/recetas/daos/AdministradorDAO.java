@@ -9,4 +9,5 @@ public interface AdministradorDAO extends JpaRepository<Administrador, Long> {
 	List<Administrador> findByNombreContainingIgnoreCase(String nombre);
 	List<Administrador> findByEmailContainingIgnoreCase(String email);
 	Optional<Administrador> findById(Long id);
+	List<Administrador> findByActivoTrue();
 }

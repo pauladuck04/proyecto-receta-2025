@@ -1,4 +1,4 @@
-package es.uvigo.dagss.recetas.service;
+package es.uvigo.dagss.recetas.services;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,5 +59,13 @@ public class MedicoService{
 		}
 		
 		return medicoDAO.findAll();
+	}
+
+	public List<Medico> buscarPorCentroSalud(Long centroId){
+		if(centroId == null || centroId == 0){
+			return new ArrayList<>();
+		}
+
+		return medicoDAO.findByCentroSaludId(centroId);
 	}
 }

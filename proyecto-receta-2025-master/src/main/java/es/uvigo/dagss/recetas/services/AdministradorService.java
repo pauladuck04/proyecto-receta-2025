@@ -35,4 +35,8 @@ public class AdministradorService{
 	public Administrador buscarPorId(Long id){
 		return administradorDAO.findById(id).orElse(null);
 	}
+
+	public List<Administrador> buscarActivos() {
+        return administradorDAO.findByActivoTrue();
+    }
 }

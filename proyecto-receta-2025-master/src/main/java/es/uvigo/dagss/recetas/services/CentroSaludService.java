@@ -47,4 +47,12 @@ public class CentroSaludService{
 
         return centroSaludDAO.findByNombreContainingIgnoreCaseOrLocalidadContainingIgnoreCase(filtro, filtro)
     }
+
+    public List<CentroSalud> buscarPorProvincia(String provincia){
+        if(provincia != null && !provincia.isEmpty()){
+            return centroSaludDAO.findByDireccionProvinciaIgnoreCase(provincia);
+        }
+
+        return new ArrayList<>();
+    }
 }
