@@ -19,11 +19,6 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cita implements Serializable {*
-	public static final int MINUTOS_APERTURA = 8 * 60 + 30; // 8:30 AM
-	public static final int MINUTOS_CIERRE = 15 * 60 + 30; //3:30 PM
-	public static final int MINUTOS_CITA = 15;
-	public static final int NUMERO_CITAS = (MINUTOS_CIERRE - MINUTOS_APERTURA) / MINUTOS_CITA;
-
 	@Id
 	@TableGenerator(name = "CITA_GEN", table = "CITA_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "CITA_GEN")

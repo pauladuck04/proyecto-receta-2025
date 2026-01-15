@@ -4,7 +4,6 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Cita;
 
 public interface CitaService{
-	public Cita crearCita(Cita cita);
 	public Cita actualizarCita(Cita cita);
 	public void eliminarCita(Cita cita);
 	public List<Cita> buscarTodos();
@@ -14,4 +13,7 @@ public interface CitaService{
 	public List<Cita> buscarPorFecha(String fecha);
 	public List<Cita> buscarPorMedico(Long medicoId);
 	public List<Cita> buscarPorPaciente(Long pacienteId);
+	public Cita crearCita(Cita cita);
+	public obtenerHuecosDisponibles(Medico medico, LocalDate fecha);
+	public buscarPorEstado(Estado estado);
 }
