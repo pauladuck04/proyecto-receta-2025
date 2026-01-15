@@ -1,6 +1,7 @@
 package es.uvigo.dagss.recetas.daos;
 
 public interface PrescripcionDAO extends JpaRepository<Prescripcion, Long>{
-	List<Prescripcion> findByPacienteIdAndFechaFinGreaterThanEqualOrderByFechaInicioAsc(Long pacienteId, LocalDate fechaActual);
+	List<Prescripcion> findByPacienteId(Long pacienteId);
+	List<Prescripcion> findByFechaFinGreaterThanEqualOrderByFechaInicioAsc(LocalDate fechaActual);
 	List<Prescripcion> findByActivoTrue();
 }
