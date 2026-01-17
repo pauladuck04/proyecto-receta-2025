@@ -74,19 +74,11 @@ public class PacienteService{
 		}
 	}
 
-	public List<Paciente> listarFiltrado(String texto, Long centroId, Long medicoId){
-		if(medicoId != null && medicoId != 0){
-			return pacienteDAO.findByMedicoId(medicoId);
+	public List<Paciente> buscarPorLocalidad(String localidad){
+		if(localidad != null && !localidad.isEmpty()){
+			return pacienteDAO.findByDireccionLocalidadContainingIgnoreCase(localidad);
+		}else{
+			return pacienteDAO.findAll();
 		}
-	
-		if(centroId != null && centroId != 0){
-			return pacienteDAO.findByCentroSaludId(centroId);
-		}
-
-		if(texto != null && !texto.isEmpty()){
-			return pacienteDAO.findByNombreContainingIgnoreCaseOrDireccionLocalidadContainingIgnoreCase(texto, texto);
-		}
-		
-		return pacienteDAO.findAll();
 	}
 }
