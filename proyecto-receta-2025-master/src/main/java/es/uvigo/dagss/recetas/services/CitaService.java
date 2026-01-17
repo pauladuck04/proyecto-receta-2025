@@ -2,6 +2,8 @@ package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Cita;
+import es.uvigo.dagss.recetas.entidades.Medico;
+import java.time.LocalDate;
 
 public interface CitaService{
 	public Cita actualizarCita(Cita cita);
