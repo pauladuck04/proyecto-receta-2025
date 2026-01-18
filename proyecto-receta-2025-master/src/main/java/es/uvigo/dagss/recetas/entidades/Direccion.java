@@ -60,7 +60,7 @@ public class Direccion{
 
 	@Override
 	public String toString(){
-		return "Direccion [" + "calle=" + calle ", ciudad=" + ciudad + ", codigo postal=" + codigoPostal + "provincia=" + provincia + "]";
+		return "Direccion [" + "calle=" + calle + ", ciudad=" + ciudad + ", codigo postal=" + codigoPostal + "provincia=" + provincia + "]";
 	}
 
 	@Override

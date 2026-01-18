@@ -2,6 +2,10 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
 @Entity
 @DiscriminatorValue(value = "MEDICO")
@@ -18,7 +22,7 @@ public class Medico extends Usuario {
     @NotNull
     private String email;
     @NotNull
-    private String DNI;
+    private String dni;
 
     @ManyToOne(targetEntity = CentroSalud.class)
     @NotNull
@@ -34,14 +38,14 @@ public class Medico extends Usuario {
         super(TipoUsuario.MEDICO);
     }
 
-    public Medico(String login, String password, String numeroColegiado, String nombre, String apellidos, String telefono, String email, String DNI, Direccion direccion) {
+    public Medico(String login, String password, String numeroColegiado, String nombre, String apellidos, String telefono, String email, String dni, Direccion direccion) {
         super(TipoUsuario.MEDICO, login, password);
         this.numeroColegiado = numeroColegiado;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.email = email;
-        this.DNI = DNI;
+        this.dni = dni;
         this.direccion = direccion;
     }
 
@@ -56,12 +60,12 @@ public class Medico extends Usuario {
     }
 
     public string getDni() {
-        return DNI;
+        return dni;
     }
 
     public void setDni(string dni) {
         if(ValidationUtils.validarDNI(dni)){
-            this.DNI = dni;
+            this.dni = dni;
         }
     }
 
@@ -125,7 +129,7 @@ public class Medico extends Usuario {
 
     @Override
     public String toString(){
-        return super.toString + "medico [nombre=" + nombre + ", apellidos=" + apellidos + ", numero de colegiado=" + numeroColegiado + ", telefono=" + telefono
+        return super.toString() + "medico [nombre=" + nombre + ", apellidos=" + apellidos + ", numero de colegiado=" + numeroColegiado + ", telefono=" + telefono
                 + ", email=" + email + ", DNI=" + dni + ", direccion=" + direccion + "]";
     }
 }

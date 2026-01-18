@@ -9,11 +9,11 @@ import es.uvigo.dagss.recetas.daos.CentroSaludDAO;
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 
 @Service
-public class CentroSaludService{
+public class CentroSaludServiceImpl implements CentroSaludService{
 	@Autowired
-	private CentroSaludDAO CentroSaludDAO;
+	private CentroSaludDAO centroSaludDAO;
 
-	public CentroSaludService(){ }
+	public CentroSaludServiceImpl(){ }
 
 	public List<CentroSalud> buscarTodos() {
         return centroSaludDAO.findAll();

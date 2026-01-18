@@ -4,8 +4,8 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Medico;
 
 public interface MedicoService{
-	public Medico crearMedico(Medico medico);
-	public Medico actualizarMedico(Medico medico);
+	public void crearMedico(Medico medico);
+	public void actualizarMedico(Medico medico);
 	public void eliminarMedico(Medico medico);
 	public List<Medico> buscarTodos();
 	public Medico buscarPorId(Long id);

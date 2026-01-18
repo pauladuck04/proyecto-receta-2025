@@ -35,3 +35,4 @@ public class AdministradorController{
 	public List<Administrador> listarAdministradores(){
 		return administradorService.buscarTodos();
 	}
+}

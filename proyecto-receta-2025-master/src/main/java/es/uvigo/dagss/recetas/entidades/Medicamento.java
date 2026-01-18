@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.TableGenerator;
-import jakarta.validation.constrains.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Medicamento{
@@ -48,8 +48,6 @@ public class Medicamento{
 	public Long getId(){
 		return id;
 	}
-
-	public void 
 
 	public String getFabricante(){
 		return fabricante;

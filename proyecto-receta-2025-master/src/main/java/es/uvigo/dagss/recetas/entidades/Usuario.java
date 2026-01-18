@@ -18,7 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-ìmport es.uvigo.dagss.recetas.util;
+import es.uvigo.dagss.recetas.util;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase

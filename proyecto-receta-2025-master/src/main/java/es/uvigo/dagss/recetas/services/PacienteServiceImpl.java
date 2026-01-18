@@ -14,23 +14,23 @@ import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 @Service
-public class PacienteService{
+public class PacienteServiceImpl implements PacienteService{
 	@Autowired
 	private PacienteDAO pacienteDAO;
 
 	@Autowired
 	private CitaDAO citaDAO;
 
-	public PacienteService(){ }
+	public PacienteServiceImpl(){ }
 
 	public void crearPaciente(Paciente paciente){
-		String dni = medico.getDni();
+		String dni = paciente.getDni();
 		paciente.setPassword(dni);	
 		pacienteDAO.save(paciente);
 	}
 
-	public Paciente actualizarPaciente(Paciente paciente){
-		return pacienteDAO.save(paciente);
+	public void actualizarPaciente(Paciente paciente){
+		pacienteDAO.save(paciente);
 	}
 
 	public void eliminarPaciente(Paciente paciente) {

@@ -12,32 +12,28 @@ import es.uvigo.dagss.recetas.daos.RecetaDAO;
 @Service
 public class PrescripcionServiceImpl implements PrescripcionService {
 	@Autowired
-    private PrescripcionDAO prescripcionRepository;
+    private PrescripcionDAO prescripcionDAO;
 
 	@Autowired
-    private RecetaDAO recetaRepository;
+    private RecetaDAO recetaDAO;
 
 	@Autowired
     private EstrategiaGeneracionRecetas planRecetasStrategy;
 
+	public PrescripcionServiceImpl(){ }
+
     @Transactional
-    public Prescripcion crearPrescripcion(Prescripcion prescripcion, Medico medico) {
-        prescripcion.setMedico(medicoLogueado);
-        
+    public void crearPrescripcion(Prescripcion prescripcion, Medico medico) {
+        prescripcion.setMedico(medico);
         prescripcion.setFechaInicio(LocalDate.now());
-        
         prescripcion.setActiva(true);
-
-        Prescripcion guardada = prescripcionRepository.save(prescripcion);
-
+        Prescripcion guardada = prescripcionDAO.save(prescripcion);
         List<Receta> plan = planRecetasStrategy.generarRecetas(guardada);
-
-        recetaRepository.saveAll(plan);
-
-        return guardada;
+        
+		recetaDAO.saveAll(plan);
     }
 
-	public Prescripcion actualizarPrescripcion(Prescripcion prescripcion) {
+	public void actualizarPrescripcion(Prescripcion prescripcion) {
 		return prescripcionDAO.save(prescripcion);
 	}
 

@@ -22,6 +22,9 @@ public class Farmacia extends Usuario {
     private String email;
 
     @NotNull
+    private String dni;
+
+    @NotNull
     private String nombreFarmaceutico;
 
     @NotNull

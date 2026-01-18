@@ -15,7 +15,7 @@ public class MedicamentoServiceImpl implements MedicamentoService{
 
 	public MedicamentoServiceImpl(){ }
 
-	public Medicamento crearMedicamento(Medicamento medicamento){
+	public void crearMedicamento(Medicamento medicamento){
 		medicamentoDAO.save(medicamento);
 	}
 
@@ -25,7 +25,7 @@ public class MedicamentoServiceImpl implements MedicamentoService{
 	}
 
 	public void actualizarMedicamento(Medicamento medicamento){
-		farmaciaDAO.save(farmacia);
+		medicamentoDAO.save(medicamento);
 	}
 
 	public List<Medicamento> buscarTodos() {

@@ -4,8 +4,8 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 
 public interface CentroSaludService{
-	public CentroSalud crearCentroSalud(CentroSalud centroSalud);
-	public CentroSalud actualizarCentroSalud(CentroSalud centroSalud);
+	public void crearCentroSalud(CentroSalud centroSalud);
+	public void actualizarCentroSalud(CentroSalud centroSalud);
 	public void eliminarCentroSalud(CentroSalud centroSalud);
 	public List<CentroSalud> buscarTodos();
 	public CentroSalud buscarPorId(Long id);

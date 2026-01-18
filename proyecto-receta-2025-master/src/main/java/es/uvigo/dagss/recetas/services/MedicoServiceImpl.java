@@ -13,14 +13,14 @@ import es.uvigo.dagss.recetas.entidades.CentroSalud;
 import es.uvigo.dagss.recetas.entidades.Medico;
 
 @Service
-public class MedicoService{
+public class MedicoServiceImpl implements MedicoService{
 	@Autowired
 	private MedicoDAO medicoDAO;
 
 	@Autowired
 	private CitaDAO citaDAO;
 
-	public MedicoService(){ }
+	public MedicoServiceImpl(){ }
 
 	public List<Medico> buscarTodos(){
 		return medicoDAO.findAll();

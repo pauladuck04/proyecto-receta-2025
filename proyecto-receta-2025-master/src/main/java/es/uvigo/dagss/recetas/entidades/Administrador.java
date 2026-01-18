@@ -2,7 +2,7 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import es.uvigo.dagss.recetas.util.ValidationUtils;
+import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
 @Entity
 @DiscriminatorValue(value = "ADMINISTRADOR")

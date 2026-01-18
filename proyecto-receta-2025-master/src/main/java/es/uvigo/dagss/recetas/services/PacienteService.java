@@ -4,8 +4,8 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 public interface PacienteService{
-	public Paciente crearPaciente(Paciente paciente);
-	public Paciente actualizarPaciente(Paciente paciente);
+	public void crearPaciente(Paciente paciente);
+	public void actualizarPaciente(Paciente paciente);
 	public void eliminarPaciente(Paciente paciente);
 	public List<Paciente> buscarTodos();
 	public Paciente buscarPorId(Long id);

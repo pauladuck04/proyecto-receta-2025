@@ -89,7 +89,7 @@ public class Paciente extends Usuario {
     }
 
     public void setEmail(String email){
-        if(ValidationUtils.ValidarEmail(email){
+        if(ValidationUtils.ValidarEmail(email)){
             this.email = email;
         }
     }

@@ -13,8 +13,8 @@ import es.uvigo.dagss.recetas.entidades.Prescripcion;
 import es.uvigo.dagss.recetas.entidades.Receta;
 
 /**
- * Estrategia de generación de recetas que crea recetas de manera semanal.
- * Cada receta tiene un margen de validez de una semana antes y después de la fecha exacta.
+ * Estrategia de generacion de recetas que crea recetas de manera semanal.
+ * Cada receta tiene un margen de validez de una semana antes y despues de la fecha exacta.
  */
 @Component
 public class EstrategiaGeneracionRecetasSemanal implements EstrategiaGeneracionRecetas {
@@ -37,7 +37,7 @@ public class EstrategiaGeneracionRecetasSemanal implements EstrategiaGeneracionR
             calendar.add(Calendar.DAY_OF_MONTH, dosisPorEnvase / dosisDiaria);
             Date fechaFin = calendar.getTime();
 
-            // Ajustar las fechas de validez con un margen de una semana antes y después
+            // Ajustar las fechas de validez con un margen de una semana antes y despues
             Calendar fechaValidezInicio = Calendar.getInstance();
             fechaValidezInicio.setTime(fechaInicio);
             fechaValidezInicio.add(Calendar.DAY_OF_MONTH, -7);
@@ -47,7 +47,7 @@ public class EstrategiaGeneracionRecetasSemanal implements EstrategiaGeneracionR
             fechaValidezFin.add(Calendar.DAY_OF_MONTH, 7);
 
             // Crear receta con varias cajas para minimizar visitas a la farmacia
-            int cajasPorReceta = 1; // Ajustar este valor según sea necesario
+            int cajasPorReceta = 1; // Ajustar este valor segun sea necesario
             Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.Estado.PLANIFICADA);
             planRecetas.add(receta);
             recetaDAO.save(receta);

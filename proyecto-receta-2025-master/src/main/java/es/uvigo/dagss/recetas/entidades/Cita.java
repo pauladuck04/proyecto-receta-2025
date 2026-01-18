@@ -18,7 +18,7 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Cita implements Serializable {*
+public class Cita implements Serializable {
 	@Id
 	@TableGenerator(name = "CITA_GEN", table = "CITA_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "CITA_GEN")
@@ -36,10 +36,7 @@ public class Cita implements Serializable {*
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
-	private Date fechaHora;
-
-	@NotNull
-	private LocalDate fecha;
+	private DateTime fechaHora;
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -50,11 +47,10 @@ public class Cita implements Serializable {*
 
 	public Cita() { }
 
-	public Cita(Paciente paciente, Medico medico, Date fechaHora, LocalDate fecha, EstadoCita estadoCita, int duracion) {
+	public Cita(Paciente paciente, Medico medico, LocalDateTime fechaHora, EstadoCita estadoCita, int duracion) {
 		this.paciente = paciente;
 		this.medico = medico;
 		this.fechaHora = fechaHora;
-		this.fecha = fecha;
 		this.estadoCita = estadoCita;
 		this.duracion = duracion;
 	}
@@ -104,16 +100,24 @@ public class Cita implements Serializable {*
 	}
 
 	public LocalDate getFecha(){
-		return fecha;
+		return fechaHora.toLocalDate();
 	}
 
-	public void setFecha(LocalDate fecha){
-		this.fecha = fecha;
+	public void setFecha(LocalDate fechaHora){
+		this.fechaHora = fechaHora;
+	}
+
+	public LocalTime getHora() {
+		return fechaHora.toLocalTime();
+	}
+
+	public void setHora(LocalTime fechaHora){
+		this.fechaHora = fechaHora;
 	}
 
 	@Override
     public String toString() {
-        return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fechaHora=" + fechaHora + ", estadoCita=" + estadoCita + ", duracion=" + duracion + ']';
+        return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha=" + fechaHora.toLocalDate().toString() + ", hora" + fechaHora.toLocalTime().toString() + ", estadoCita=" + estadoCita + ", duracion=" + duracion + ']';
     }
 
 	@Override

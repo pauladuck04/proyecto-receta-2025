@@ -4,8 +4,8 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Prescripcion;
 
 public interface PrescripcionService{
-	public Prescripcion crearPrescripcion(Prescripcion prescripcion);
-	public Prescripcion actualizarPrescripcion(Prescripcion prescripcion);
+	public void crearPrescripcion(Prescripcion prescripcion);
+	public void actualizarPrescripcion(Prescripcion prescripcion);
 	public void eliminarPrescripcion(Prescripcion prescripcion);
 	public List<Prescripcion> buscarTodos();
 	public Prescripcion buscarPorId(Long id);

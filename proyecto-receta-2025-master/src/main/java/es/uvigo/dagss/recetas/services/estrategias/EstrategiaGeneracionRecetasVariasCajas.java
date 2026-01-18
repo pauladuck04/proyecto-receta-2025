@@ -13,11 +13,11 @@ import es.uvigo.dagss.recetas.entidades.Prescripcion;
 import es.uvigo.dagss.recetas.entidades.Receta;
 
 /**
- * Estrategia de generación de recetas que crea una receta por cada caja de medicamento.
- * Cada receta tiene un margen de validez de una semana antes y después de la fecha exacta.
+ * Estrategia de generacion de recetas que crea recetas con varias cajas de medicamento.
+ * Cada receta tiene un margen de validez de una semana antes y despues de la fecha exacta.
  */
 @Component
-public class EstrategiaGeneracionRecetasUnaCaja implements EstrategiaGeneracionRecetas {
+public class EstrategiaGeneracionRecetasVariasCajas implements EstrategiaGeneracionRecetas {
     @Autowired
     private RecetaDAO recetaDAO;
 
@@ -37,7 +37,7 @@ public class EstrategiaGeneracionRecetasUnaCaja implements EstrategiaGeneracionR
             calendar.add(Calendar.DAY_OF_MONTH, dosisPorEnvase / dosisDiaria);
             Date fechaFin = calendar.getTime();
 
-            // Ajustar las fechas de validez con un margen de una semana antes y después
+            // Ajustar las fechas de validez con un margen de una semana antes y despues
             Calendar fechaValidezInicio = Calendar.getInstance();
             fechaValidezInicio.setTime(fechaInicio);
             fechaValidezInicio.add(Calendar.DAY_OF_MONTH, -7);
@@ -46,8 +46,9 @@ public class EstrategiaGeneracionRecetasUnaCaja implements EstrategiaGeneracionR
             fechaValidezFin.setTime(fechaFin);
             fechaValidezFin.add(Calendar.DAY_OF_MONTH, 7);
 
-            // Crear receta con una sola caja
-            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), 1, Receta.Estado.PLANIFICADA);
+            // Crear receta con varias cajas
+            int cajasPorReceta = 3; // Ajustar este valor segun sea necesario
+            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.Estado.PLANIFICADA);
             planRecetas.add(receta);
             recetaDAO.save(receta);
         }

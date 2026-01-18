@@ -10,13 +10,13 @@ import es.uvigo.dagss.recetas.daos.FarmaciaDAO;
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 
 @Service
-public class FarmaciaService{
+public class FarmaciaServiceImpl implements FarmaciaService{
 	@Autowired
 	private FarmaciaDAO farmaciaDAO;
 
-	public FarmaciaService(){ }
+	public FarmaciaServiceImpl(){ }
 
-	public Farmacia crearFarmacia(Farmacia farmacia){
+	public void crearFarmacia(Farmacia farmacia){
 		String numColegiado = farmacia.getNumColegiado();
 		farmacia.setPassword(numColegiado);	
 		farmaciaDAO.save(farmacia);

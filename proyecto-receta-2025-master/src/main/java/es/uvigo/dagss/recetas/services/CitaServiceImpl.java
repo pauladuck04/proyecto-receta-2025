@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,7 @@ import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 @Service
-public class CitaService{
+public class CitaServiceImpl implements CitaService{
 	@Autowired
 	private CitaDAO citaDAO;
 
@@ -33,7 +36,7 @@ public class CitaService{
 	private final int DURACION_CITA_MINUTOS = 15;
 
 
-	public CitaService(){ }
+	public CitaServiceImpl(){ }
 
 	public List<Cita> buscarTodas(){
 		return citaDAO.findAll();
@@ -44,11 +47,11 @@ public class CitaService{
 	}
 
 	public List<Cita> buscarPorMedico(Long medicoId){
-		return citaDAO.findByMedicoId(medico);
+		return citaDAO.findByMedicoId(medicoId);
 	}
 
 	public List<Cita> buscarPorPaciente(Long pacienteId){
-		return citaDAO.findByPacienteId(paciente);
+		return citaDAO.findByPacienteId(pacienteId);
 	}
 
 	public void anularCita(Long id) {
@@ -56,11 +59,11 @@ public class CitaService{
         if (cita.isPresent()) {
             Cita citaExistente = cita.get();
             citaExistente.setEstadoCita(EstadoCita.ANULADA);
-            guardar(citaExistente);
+            citaDAO.save(citaExistente);
         }
     }
 
-	public Cita actualizarCita(Cita cita) {
+	public void actualizarCita(Cita cita) {
 		return citaDAO.save(cita);
 	}
 
@@ -68,21 +71,24 @@ public class CitaService{
 		citaDAO.delete(cita);
 	}
 
-	public List<Cita> buscarPorFecha(String fecha) {
-		citaDAO.findByFecha(fecha);
+	public List<Cita> buscarPorFecha(LocalDate fecha) {
+		return citaDAO.findByFechaOrderByHoraInicioAsc(fecha);
 	}
 
 	public List<Cita> buscarActivos() {
 		return citaDAO.findByActivoTrue();
 	}
 
-	public List<Cita> buscarPorEstado(Estado estado){
+	public List<Cita> buscarPorEstado(EstadoCita estado){
 		return citaDAO.findByEstado(estado);
 	}
 
-	public List<LocalTime> obtenerHuecos(Medico medico, LocalDate fecha){
-		List<Cita citasExistentes = citaDAO.findByMedicoAndFecha(medico, fecha);
-		citasExistentes = citasExistentes.findByEstado(EstadoCita.PLANIFICADA);
+	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDate fecha){
+		List<Cita> citasExistentes = citaDAO.findByMedicoAndFechaOrderByHoraInicioAsc(medico, fecha);
+		
+		List<Cita> filtradas = citasExistentes.stream()
+			.filter(c -> c.getEstadoCita().equals(EstadoCita.PLANIFICADA))
+			.toList();
 
 		List<LocalTime> horasOcupadas = citasExistentes.stream()
 			.map(cita -> cita.getHora())
@@ -101,18 +107,17 @@ public class CitaService{
 	}
 
 	public Cita crearCita(Paciente paciente, LocalDate fecha, LocalTime horaSeleccionada){
-	{
 		Cita nuevaCita = new Cita();
 
 		nuevaCita.setPaciente(paciente);
 		nuevaCita.setFecha(fecha);
-		nuevaCita.setHoraInicio(horaSeleccionada);
+		nuevaCita.setHora(horaSeleccionada);
 		nuevaCita.setMedico(paciente.getMedico());
 
 		nuevaCita.setEstadoCita(EstadoCita.PLANIFICADA);
 		nuevaCita.setActivo(true);
 		nuevaCita.setDuracion(15);
 
-		return citaDAO.save(nuevaCita);
+		citaDAO.save(nuevaCita);
 	}
 }
