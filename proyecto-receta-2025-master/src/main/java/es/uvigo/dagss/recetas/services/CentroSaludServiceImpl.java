@@ -44,7 +44,7 @@ public class CentroSaludServiceImpl implements CentroSaludService{
         if(nombre != null && !nombre.isEmpty()){
             return centroSaludDAO.findByNombreContainingIgnoreCase(nombre);
         }else{
-            return CentroSaludDAO.findAll();
+            return centroSaludDAO.findAll();
         }
     }
 

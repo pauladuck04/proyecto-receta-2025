@@ -12,4 +12,5 @@ public interface FarmaciaDAO extends JpaRepository<Farmacia, Long>{
 	List<Farmacia> findByDireccionLocalidadContainingIgnoreCase(String localidad);
 	List<Farmacia> findByProvinciaIgnoreCase(String provincia);
 	Optional<Farmacia> findByLogin(String login);
+	List<Farmacia> findByActivoTrue();
 }

@@ -12,10 +12,10 @@ public interface CitaService{
 	public List<Cita> buscarActivos();
 	public Cita buscarPorId(Long id);
 	public void anularCita(Long id);
-	public List<Cita> buscarPorFecha(String fecha);
+	public List<Cita> buscarPorFecha(LocalDateTime fechaHora);
 	public List<Cita> buscarPorMedico(Long medicoId);
 	public List<Cita> buscarPorPaciente(Long pacienteId);
-	public void crearCita(Paciente paciente, LocalDate fecha, LocalTime hora);
-	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDate fecha);
+	public void crearCita(Paciente paciente, LocalDateTime fechaHora);
+	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDateTime fechaHora);
 	public List<Cita> buscarPorEstado(Estado estado);
 }

@@ -48,7 +48,7 @@ public class EstrategiaGeneracionRecetasSemanal implements EstrategiaGeneracionR
 
             // Crear receta con varias cajas para minimizar visitas a la farmacia
             int cajasPorReceta = 1; // Ajustar este valor segun sea necesario
-            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.Estado.PLANIFICADA);
+            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.EstadoReceta.PLANIFICADA);
             planRecetas.add(receta);
             recetaDAO.save(receta);
         }

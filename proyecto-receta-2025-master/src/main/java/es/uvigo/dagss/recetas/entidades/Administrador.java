@@ -9,33 +9,33 @@ import es.uvigo.dagss.recetas.utils.ValidationUtils;
 public class Administrador extends Usuario {
 
     @NotNull
-    private string nombre;
+    private String nombre;
     @NotNull
-    private string email;
+    private String email;
 	
     public Administrador() {
         super(TipoUsuario.ADMINISTRADOR); 
     }
 
-    public Administrador(string login, string password, string nombre, string email){
+    public Administrador(String login, String password, String nombre, String email){
         super(TipoUsuario.ADMINISTRADOR, login, password);
         this.nombre = nombre;
         this.email = email;
     }
 
-    public string getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(string nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public string getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(string email) {
+    public void setEmail(String email) {
         if(ValidationUtils.validarEmail(email)){
             this.email = email;
         }

@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.NotNull;
+import es.uvigo.dagss.recetas.utils.ValidationUtils;
+
 
 @Entity
 public class CentroSalud{

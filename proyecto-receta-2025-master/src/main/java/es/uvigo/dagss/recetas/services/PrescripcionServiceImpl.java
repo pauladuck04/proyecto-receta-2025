@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import es.uvigo.dagss.recetas.daos.PrescripcionDAO;
 import es.uvigo.dagss.recetas.daos.RecetaDAO;
+import es.uvigo.dagss.recetas.entidades.Receta;
+import es.uvigo.dagss.recetas.strategies.EstrategiaGeneracionRecetas;
+import java.time.LocalDate;
+
 
 @Service
 public class PrescripcionServiceImpl implements PrescripcionService {
@@ -22,11 +26,10 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 
 	public PrescripcionServiceImpl(){ }
 
-    @Transactional
     public void crearPrescripcion(Prescripcion prescripcion, Medico medico) {
         prescripcion.setMedico(medico);
         prescripcion.setFechaInicio(LocalDate.now());
-        prescripcion.setActiva(true);
+        prescripcion.setActivo(true);
         Prescripcion guardada = prescripcionDAO.save(prescripcion);
         List<Receta> plan = planRecetasStrategy.generarRecetas(guardada);
         
@@ -34,7 +37,7 @@ public class PrescripcionServiceImpl implements PrescripcionService {
     }
 
 	public void actualizarPrescripcion(Prescripcion prescripcion) {
-		return prescripcionDAO.save(prescripcion);
+		prescripcionDAO.save(prescripcion);
 	}
 
 	public void eliminarPrescripcion(Prescripcion prescripcion) {
@@ -46,7 +49,7 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 	}
 
 	public List<Prescripcion> buscarActivos() {
-		return prescripcionDAO.findByActivaTrue();
+		return prescripcionDAO.findByActivoTrue();
 	}
 
 	public Prescripcion buscarPorId(Long id) {
@@ -54,7 +57,7 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 	}
 
 	public List<Prescripcion> buscarPorPaciente(Long pacienteId) {
-		if(pacienteId != null && pacienteId.IsEmpty()){
+		if(pacienteId != null && pacienteId != 0){
 			return prescripcionDAO.findByPacienteId(pacienteId);
 		}else{
 			return prescripcionDAO.findAll();
@@ -62,7 +65,7 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 	}
 
 	public List<Prescripcion> buscarPorMedico(Long medicoId) {
-		if(medicoId != null && medicoId.IsEmpty()){
+		if(medicoId != null && medicoId != 0){
 			return prescripcionDAO.findByMedicoId(medicoId);
 		}else{
 			return prescripcionDAO.findAll();

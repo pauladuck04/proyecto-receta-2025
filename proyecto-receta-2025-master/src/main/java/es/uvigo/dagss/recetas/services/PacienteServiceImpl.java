@@ -58,16 +58,16 @@ public class PacienteServiceImpl implements PacienteService{
 		}
 	}
 
-	public List<Paciente> buscarPorCentroSalud(String centroId){
-		if(centroId != null && !centroId.isEmpty()){
+	public List<Paciente> buscarPorCentroSalud(Long centroId){
+		if(centroId != null && centroId != 0){
 			return pacienteDAO.findByCentroSaludId(centroId);
 		}else{
 			return pacienteDAO.findAll();
 		}
 	}
 
-	public List<Paciente> buscarPorMedico(String medicoId){
-		if(medicoId != null && !medicoId.isEmpty()){
+	public List<Paciente> buscarPorMedico(Long medicoId){
+		if(medicoId != null && medicoId != 0){
 			return pacienteDAO.findByMedicoId(medicoId);
 		}else{
 			return pacienteDAO.findAll();

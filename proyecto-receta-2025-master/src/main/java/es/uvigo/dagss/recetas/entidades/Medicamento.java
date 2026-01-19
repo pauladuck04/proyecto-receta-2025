@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.TableGenerator;
 import jakarta.validation.constraints.NotNull;
 
+import 
+
 @Entity
 public class Medicamento{
 	@Id

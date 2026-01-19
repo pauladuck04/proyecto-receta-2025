@@ -38,7 +38,7 @@ public class CitaServiceImpl implements CitaService{
 
 	public CitaServiceImpl(){ }
 
-	public List<Cita> buscarTodas(){
+	public List<Cita> buscarTodos(){
 		return citaDAO.findAll();
 	}
 
@@ -64,14 +64,14 @@ public class CitaServiceImpl implements CitaService{
     }
 
 	public void actualizarCita(Cita cita) {
-		return citaDAO.save(cita);
+		citaDAO.save(cita);
 	}
 
 	public void eliminarCita(Cita cita) {
 		citaDAO.delete(cita);
 	}
 
-	public List<Cita> buscarPorFecha(LocalDate fecha) {
+	public List<Cita> buscarPorFecha(LocalDateTime fecha) {
 		return citaDAO.findByFechaOrderByHoraInicioAsc(fecha);
 	}
 
@@ -83,7 +83,7 @@ public class CitaServiceImpl implements CitaService{
 		return citaDAO.findByEstado(estado);
 	}
 
-	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDate fecha){
+	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDateTime fecha){
 		List<Cita> citasExistentes = citaDAO.findByMedicoAndFechaOrderByHoraInicioAsc(medico, fecha);
 		
 		List<Cita> filtradas = citasExistentes.stream()
@@ -106,12 +106,12 @@ public class CitaServiceImpl implements CitaService{
 		return huecosLibres;
 	}
 
-	public Cita crearCita(Paciente paciente, LocalDate fecha, LocalTime horaSeleccionada){
+	public void crearCita(Paciente paciente, LocalDateTime fecha){
 		Cita nuevaCita = new Cita();
 
 		nuevaCita.setPaciente(paciente);
-		nuevaCita.setFecha(fecha);
-		nuevaCita.setHora(horaSeleccionada);
+		nuevaCita.setFecha(fecha.toLocalDate());
+		nuevaCita.setHora(fecha.toLocalTime());
 		nuevaCita.setMedico(paciente.getMedico());
 
 		nuevaCita.setEstadoCita(EstadoCita.PLANIFICADA);

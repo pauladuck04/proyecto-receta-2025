@@ -47,7 +47,7 @@ public class EstrategiaGeneracionRecetasUnaCaja implements EstrategiaGeneracionR
             fechaValidezFin.add(Calendar.DAY_OF_MONTH, 7);
 
             // Crear receta con una sola caja
-            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), 1, Receta.Estado.PLANIFICADA);
+            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), 1, Receta.EstadoReceta.PLANIFICADA);
             planRecetas.add(receta);
             recetaDAO.save(receta);
         }

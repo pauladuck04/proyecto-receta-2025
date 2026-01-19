@@ -37,11 +37,11 @@ public class Prescripcion{
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    private Date fechaFin;
+    private LocalDate fechaFin;
 
     @NotNull
     private boolean activo = true;
@@ -49,7 +49,7 @@ public class Prescripcion{
     public Prescripcion(){ }
 
     public Prescripcion(Medicamento medicamento, Paciente paciente, 
-    Medico medico, String indicaciones, int dosis, Date fechaInicio, Date fechaFin){
+    Medico medico, String indicaciones, int dosis, LocalDate fechaInicio, LocalDate fechaFin){
         this.medicamento = medicamento;
         this.paciente = paciente;
         this.medico = medico;
@@ -103,19 +103,19 @@ public class Prescripcion{
         this.dosis = dosis;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 

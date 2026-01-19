@@ -34,9 +34,8 @@ public class Cita implements Serializable {
 	@JoinColumn(name = "medico_id")
 	private Medico medico;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
-	private DateTime fechaHora;
+	private LocalDateTime fechaHora;
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -44,6 +43,8 @@ public class Cita implements Serializable {
 
 	@NotNull
 	private int duracion;
+
+	private Boolean activo = true;
 
 	public Cita() { }
 
@@ -75,11 +76,11 @@ public class Cita implements Serializable {
 		this.medico = medico;
 	}
 
-	public Date getFechaHora(){
+	public LocalDateTime getFechaHora(){
 		return fechaHora;
 	}
 
-	public void setFechaHora(Date fechaHora){
+	public void setFechaHora(LocalDateTime fechaHora){
 		this.fechaHora = fechaHora;
 	}
 
@@ -113,6 +114,14 @@ public class Cita implements Serializable {
 
 	public void setHora(LocalTime fechaHora){
 		this.fechaHora = fechaHora;
+	}
+
+	public Boolean isActivo(){
+		return activo;
+	}
+
+	public void setActivo(Boolean activo){
+		this.activo = activo;
 	}
 
 	@Override

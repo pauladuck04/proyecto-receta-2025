@@ -2,7 +2,9 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import es.uvigo.dagss.recetas.util.ValidationUtils;
+import es.uvigo.dagss.recetas.utils.ValidationUtils;
+
+import es.uvigo.dagss.recetas.entidades.Usuario;
 
 @Entity
 @DiscriminatorValue(value = "FARMACIA")
@@ -112,9 +114,21 @@ public class Farmacia extends Usuario {
         this.numeroColegiado = numeroColegiado;
     }
 
+    public String getApellidosFarmaceutico() {
+        return apellidosFarmaceutico;
+    }
+
+    public void setApellidosFarmaceutico(String apellidosFarmaceutico) {
+        this.apellidosFarmaceutico = apellidosFarmaceutico;
+    }
+
+	public Boolean isActivo() {
+		return super.isActivo();
+	}
+
     @Override
     public String toString() {
-        return super.toString + "farmacia [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
+        return super.toString() + "farmacia [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
                 + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + dni
                 + ", numeroColegiado=" + numeroColegiado + "]";
     }

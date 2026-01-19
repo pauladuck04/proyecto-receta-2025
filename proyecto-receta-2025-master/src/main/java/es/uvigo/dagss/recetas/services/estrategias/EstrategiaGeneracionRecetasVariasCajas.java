@@ -48,7 +48,7 @@ public class EstrategiaGeneracionRecetasVariasCajas implements EstrategiaGenerac
 
             // Crear receta con varias cajas
             int cajasPorReceta = 3; // Ajustar este valor segun sea necesario
-            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.Estado.PLANIFICADA);
+            Receta receta = new Receta(prescripcion, fechaValidezInicio.getTime(), fechaValidezFin.getTime(), cajasPorReceta, Receta.EstadoReceta.PLANIFICADA);
             planRecetas.add(receta);
             recetaDAO.save(receta);
         }

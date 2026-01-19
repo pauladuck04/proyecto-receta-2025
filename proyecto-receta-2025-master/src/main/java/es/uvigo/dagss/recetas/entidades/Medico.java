@@ -7,6 +7,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
+import java.util.LocalDateTime;
+
 @Entity
 @DiscriminatorValue(value = "MEDICO")
 public class Medico extends Usuario {

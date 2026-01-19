@@ -64,6 +64,10 @@ public class Receta {
 		this.estado = estado;
 		this.farmacia = farmacia;
 	}
+	
+	public Long getId(){
+		return id;
+	}
 
 	public Prescripcion getPrescripcion(){
 		return prescripcion;

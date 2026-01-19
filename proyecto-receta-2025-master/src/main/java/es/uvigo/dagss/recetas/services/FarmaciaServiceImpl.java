@@ -17,7 +17,7 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 	public FarmaciaServiceImpl(){ }
 
 	public void crearFarmacia(Farmacia farmacia){
-		String numColegiado = farmacia.getNumColegiado();
+		String numColegiado = farmacia.getNumeroColegiado();
 		farmacia.setPassword(numColegiado);	
 		farmaciaDAO.save(farmacia);
 	}
