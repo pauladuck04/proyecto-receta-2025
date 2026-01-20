@@ -13,7 +13,7 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long>{
 	List<Paciente> findByCentroSaludId(Long centroSaludId);
 	List<Paciente> findByMedicoId(Long medicoId);
 	Optional<Paciente> findByDniContainingIgnoreCase(String dni);
-	Optional<Paciente> findByNumTarjetaSanitariaContainingIgnoreCase(String numTarjetaSanitaria);
+	Optional<Paciente> findByNssContainingIgnoreCase(String nss);
 	Optional<Paciente> findByLogin(String login);
 	List<Paciente> findByActivoTrue();
 

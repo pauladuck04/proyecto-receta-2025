@@ -1,56 +1,59 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.TableGenerator;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.cglib.core.Local;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
-@DiscriminatorColumn(name = "TIPO_USUARIO",
-                     discriminatorType = DiscriminatorType.STRING,
-                     length = 20)
 public abstract class Usuario implements Serializable {
 
     @Id
-    @TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)           
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
+    @TableGenerator(
+            name = "USUARIO_GEN",
+            table = "GENERADOR_IDS",          // Nombre de la tabla de control
+            pkColumnName = "NOMBRE_CONTADOR",
+            valueColumnName = "VALOR_ACTUAL",
+            pkColumnValue = "USUARIO_ID",      // Fila específica para esta jerarquía
+            allocationSize = 1
+    )
     private Long id;
 
-
+    @Transient
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_USUARIO", length = 20)
     protected TipoUsuario tipo;
 
+    @NotNull
     private String login;
+
+    @NotNull
+    @JsonIgnore
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    @NotNull
+    private LocalDate fechaAlta;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ultimoAcceso;
+    @NotNull
+    private LocalDate ultimoAcceso;
 
+    @NotNull
 	private Boolean activo = true;
 	
     public Usuario() {
-        this.fechaAlta = Calendar.getInstance().getTime();
-        this.ultimoAcceso = Calendar.getInstance().getTime();
+        this.fechaAlta = LocalDate.now();
+        this.ultimoAcceso = LocalDate.now();
 		this.activo = true;
     }
 
@@ -74,19 +77,19 @@ public abstract class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(LocalDate fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public Date getUltimoAcceso() {
+	public LocalDate getUltimoAcceso() {
 		return ultimoAcceso;
 	}
 
-	public void setUltimoAcceso(Date ultimoAcceso) {
+	public void setUltimoAcceso(LocalDate ultimoAcceso) {
 		this.ultimoAcceso = ultimoAcceso;
 	}
 

@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
@@ -7,12 +8,14 @@ import java.util.Objects;
 
 @Embeddable
 public class Direccion{
-	@NotNull
+	@JsonIgnore
+    @NotNull
 	private String calle;
 
 	@NotNull
-	private String ciudad;
+	private String localidad;
 
+    @JsonIgnore
 	@NotNull
 	private String codigoPostal;
 
@@ -21,9 +24,9 @@ public class Direccion{
 
 	public Direccion(){ }
 
-	public Direccion(String calle, String ciudad, String codigoPostal, String provincia){
+	public Direccion(String calle, String localidad, String codigoPostal, String provincia){
 		this.calle = calle;
-		this.ciudad = ciudad;
+		this.localidad = localidad;
 		this.codigoPostal = codigoPostal;
 		this.provincia = provincia;
 	}
@@ -36,12 +39,12 @@ public class Direccion{
 		this.calle = calle;
 	}
 
-	public String getCiudad(){
-		return ciudad;
+	public String getLocalidad(){
+		return localidad;
 	}
 
-	public void setCiudad(String ciudad){
-		this.ciudad = ciudad;
+	public void setLocalidad(String ciudad){
+		this.localidad = localidad;
 	}
 
 	public String getCodigoPostal(){
@@ -62,7 +65,7 @@ public class Direccion{
 
 	@Override
 	public String toString(){
-		return "Direccion [" + "calle=" + calle + ", ciudad=" + ciudad + ", codigo postal=" + codigoPostal + "provincia=" + provincia + "]";
+		return "Direccion [" + "calle=" + calle + ", localidad=" + localidad + ", codigo postal=" + codigoPostal + "provincia=" + provincia + "]";
 	}
 
 	@Override
@@ -73,13 +76,13 @@ public class Direccion{
 		Direccion that = (Direccion) o;
 
 		return Objects.equals(calle, that.calle) &&
-			   Objects.equals(ciudad, that.ciudad) &&
+			   Objects.equals(localidad, that.localidad) &&
 			   Objects.equals(codigoPostal, that.codigoPostal) &&
 			   Objects.equals(provincia, that.provincia);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(calle, ciudad, codigoPostal, provincia);
+		return Objects.hash(calle, localidad, codigoPostal, provincia);
 	}
 }	

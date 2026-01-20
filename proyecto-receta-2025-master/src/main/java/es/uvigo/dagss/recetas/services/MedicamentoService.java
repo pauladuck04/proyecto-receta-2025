@@ -14,4 +14,5 @@ public interface MedicamentoService{
 	public List<Medicamento> buscarPorPrincipioActivo(String principioActivo);
 	public List<Medicamento> buscarPorFabricante(String fabricante);
 	public List<Medicamento> buscarPorFamilia(String familia);
+    public String getMedicamentoHome(Long medicamentoId);
 }

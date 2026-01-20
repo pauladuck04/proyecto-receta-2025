@@ -1,11 +1,7 @@
 package es.uvigo.dagss.recetas.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.TableGenerator;
-import jakarta.persistence.Embedded;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
@@ -13,8 +9,7 @@ import es.uvigo.dagss.recetas.utils.ValidationUtils;
 @Entity
 public class CentroSalud{
 	@Id
-	@TableGenerator(name= "USUARIO_GEN", table= "USUARIO_GEN", pkColumnName= "GEN_NAME", valueColumnName= "GEN_VAL", allocationSize= 1)           
-	@GeneratedValue(strategy= GenerationType.TABLE, generator= "USUARIO_GEN")
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
@@ -23,13 +18,15 @@ public class CentroSalud{
 	@Embedded
 	@NotNull
 	private Direccion direccion;
-	
+
+	@JsonIgnore
 	@NotNull
 	private String telefono;
 
 	@NotNull
 	private boolean activo = true;
 
+    @JsonIgnore
 	@NotNull
 	private String email;
 

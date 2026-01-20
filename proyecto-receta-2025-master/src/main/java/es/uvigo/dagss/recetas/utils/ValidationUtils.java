@@ -2,7 +2,7 @@ package es.uvigo.dagss.recetas.utils;
 
 public class ValidationUtils{
 
-    private boolean validarTelefono(String telefono){
+    public static boolean validarTelefono(String telefono){
         boolean valido = false;
         if(telefono.length() == 9){
             for(int i = 0; i < telefono.length(); i++){
@@ -17,7 +17,7 @@ public class ValidationUtils{
         return valido;
     }
 
-    private boolean validarDni(String dni){
+    public static boolean validarDni(String dni){
         boolean valido = false;
         if(dni.length() == 9){
             for(int i = 0; i < dni.length() - 1; i++){
@@ -32,7 +32,7 @@ public class ValidationUtils{
         return valido;
     }
 
-    private boolean validarEmail(String email){
+    public static boolean validarEmail(String email){
         boolean valido = false;
         if(email.contains("@") && email.contains(".")){
             valido = true;

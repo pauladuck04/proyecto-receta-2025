@@ -1,20 +1,18 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.TableGenerator;
 import jakarta.validation.constraints.NotNull;
-
-import 
+import jakarta.persistence.TableGenerator;
 
 @Entity
 public class Medicamento{
-	@Id
-	@TableGenerator(name = "MEDICAMENTO_GEN", table = "GENERATOR_TABLE", pkColumnName = "GEN_KEY",
-	ValueColumnName = "GEN_VALUE", pkColumnValue = "MEDICAMENTO_ID", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MEDICAMENTO_GEN")
+	@JsonIgnore
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
@@ -26,9 +24,11 @@ public class Medicamento{
 	@NotNull
 	private String familia;
 
+    @JsonIgnore
 	@NotNull
 	private int dosis;
 
+    @JsonIgnore
 	@NotNull
 	private int existencias;
 
@@ -39,12 +39,13 @@ public class Medicamento{
 
 	public Medicamento(){ }
 
-	public Medicamento(String nombreComercial, String principioActivo, String familia, int dosis, int existencias){
+	public Medicamento(String nombreComercial, String principioActivo, String familia, String fabricante, int dosis, int existencias){
 		this.nombreComercial = nombreComercial;
 		this.principioActivo = principioActivo;
 		this.familia = familia;
 		this.dosis = dosis;
 		this.existencias = existencias;
+        this.fabricante = fabricante;
 	}
 
 	public Long getId(){
@@ -103,7 +104,7 @@ public class Medicamento{
 		return activo;
 	}
 
-	public boolean setActivo(boolean activo){
+	public void setActivo(boolean activo){
 		this.activo = activo;
 	}
 

@@ -1,24 +1,44 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Embedded;
+import jakarta.validation.constraints.NotNull;
+import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
 @Entity
 @DiscriminatorValue(value = "PACIENTE")
 public class Paciente extends Usuario {
 
-	
+	@JsonIgnore
     @NotNull
     private String telefono;
 
+    @JsonIgnore
     @NotNull
     private String dni;
 
+    @JsonIgnore
     @NotNull
     private String nss;
 
+    @JsonIgnore
+    @NotNull
+    @ManyToOne(targetEntity = Medico.class)
+    private Medico medico;
+
+    @JsonIgnore
+    @NotNull
+    private String email;
+
     @NotNull
     private String nombre;
+
+    @NotNull
+    @Embedded
+    private Direccion direccion;
 
     @ManyToOne(targetEntity = CentroSalud.class)
     @NotNull
@@ -28,7 +48,7 @@ public class Paciente extends Usuario {
         super(TipoUsuario.PACIENTE);        
     }
 
-    public Paciente(String login, String password, String telefono, Direccion direccion, String dni, String nss, String email, String nombre, boolean activo) {
+    public Paciente(String login, String password, String telefono, Medico medico, Direccion direccion, CentroSalud centro_salud, String dni, String nss, String email, String nombre, boolean activo) {
         super(TipoUsuario.PACIENTE, login, password);
         this.telefono = telefono;
         this.dni = dni;
@@ -36,6 +56,8 @@ public class Paciente extends Usuario {
         this.email = email;
         this.direccion = direccion;
         this.nombre = nombre;
+        this.medico = medico;
+        this.centroSalud = centro_salud;
     }
 
     public Medico getMedico() {
@@ -89,7 +111,7 @@ public class Paciente extends Usuario {
     }
 
     public void setEmail(String email){
-        if(ValidationUtils.ValidarEmail(email)){
+        if(ValidationUtils.validarEmail(email)){
             this.email = email;
         }
     }
@@ -102,9 +124,17 @@ public class Paciente extends Usuario {
         this.nombre = nombre;
     }
 
+    public CentroSalud getCentroSalud() {
+        return centroSalud;
+    }
+
+    public void setCentroSalud(CentroSalud centroSalud) {
+        this.centroSalud = centroSalud;
+    }
+
     @Override
     public String toString(){
-        return super.toString + "paciente [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
-                + ", nss=" + nss + ", DNI=" + dni + "]";
+        return super.toString() + "paciente [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
+                + ", nss=" + nss + ", DNI=" + dni + ", medico="+ medico + ", centro de salud=" + centroSalud + "]";
     }
 }

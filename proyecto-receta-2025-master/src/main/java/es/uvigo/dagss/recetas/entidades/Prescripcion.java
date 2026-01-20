@@ -10,10 +10,13 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+
+
 @Entity
-public class Prescripcion{
-	@TableGenerator(name = "PRESCRIPCION_GEN", table = "GENERATOR_TABLE", pkColumnName = "GEN_KEY", valueColumnName = "GEN_VALUE", pkColumnValue = "PRESCRIPCION_ID", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PRESCRIPCION_GEN")
+public class Prescripcion {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -35,11 +38,9 @@ public class Prescripcion{
     @NotNull
     private int dosis;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private LocalDate fechaInicio;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private LocalDate fechaFin;
 

@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Embedded;
@@ -7,7 +8,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
 
-import java.util.LocalDateTime;
+import java.time.LocalDateTime;
+
 
 @Entity
 @DiscriminatorValue(value = "MEDICO")
@@ -15,14 +17,22 @@ public class Medico extends Usuario {
 
     @NotNull
     private String numeroColegiado;
+
     @NotNull
     private String nombre;
+
     @NotNull
     private String apellidos;
+
+    @JsonIgnore
     @NotNull
     private String telefono;
+
+    @JsonIgnore
     @NotNull
     private String email;
+
+    @JsonIgnore
     @NotNull
     private String dni;
 
@@ -61,12 +71,12 @@ public class Medico extends Usuario {
         }
     }
 
-    public string getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(string dni) {
-        if(ValidationUtils.validarDNI(dni)){
+    public void setDni(String dni) {
+        if(ValidationUtils.validarDni(dni)){
             this.dni = dni;
         }
     }

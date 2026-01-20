@@ -1,8 +1,11 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
+import jakarta.persistence.Embedded;
+import jakarta.validation.constraints.NotNull;
 
 import es.uvigo.dagss.recetas.entidades.Usuario;
 
@@ -17,23 +20,29 @@ public class Farmacia extends Usuario {
     @NotNull
     private Direccion direccion;
 
+    @JsonIgnore
     @NotNull
     private String telefono;
 
+    @JsonIgnore
     @NotNull
     private String email;
 
+    @JsonIgnore
     @NotNull
     private String dni;
 
+    @JsonIgnore
     @NotNull
     private String nombreFarmaceutico;
 
+    @JsonIgnore
     @NotNull
     private String apellidosFarmaceutico;
 
+    @JsonIgnore
     @NotNull
-    private String numeroColegiado;
+    private String numero_colegiado;
 
     public Farmacia() {
         super(TipoUsuario.FARMACIA);
@@ -49,7 +58,7 @@ public class Farmacia extends Usuario {
         this.nombreFarmaceutico = nombreFarmaceutico;
         this.apellidosFarmaceutico = apellidosFarmaceutico;
         this.dni = dni;
-        this.numeroColegiado = numeroColegiado;
+        this.numero_colegiado = numeroColegiado;
     }
 
     public String getNombre() {
@@ -107,11 +116,11 @@ public class Farmacia extends Usuario {
     }
 
     public String getNumeroColegiado() {
-        return numeroColegiado;
+        return numero_colegiado;
     }
 
     public void setNumeroColegiado(String numeroColegiado) {
-        this.numeroColegiado = numeroColegiado;
+        this.numero_colegiado = numeroColegiado;
     }
 
     public String getApellidosFarmaceutico() {
@@ -130,6 +139,6 @@ public class Farmacia extends Usuario {
     public String toString() {
         return super.toString() + "farmacia [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
                 + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + dni
-                + ", numeroColegiado=" + numeroColegiado + "]";
+                + ", numeroColegiado=" + numero_colegiado + "]";
     }
 }

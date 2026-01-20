@@ -12,4 +12,5 @@ public interface FarmaciaService{
 	public List<Farmacia> buscarActivos();
 	public List<Farmacia> buscarPorNombre(String nombre);
 	public List<Farmacia> buscarPorLocalidad(String localidad);
+    public String getFarmaciaHome(Long farmaciaId);
 }

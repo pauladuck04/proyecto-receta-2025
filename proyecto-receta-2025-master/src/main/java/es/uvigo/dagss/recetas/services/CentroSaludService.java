@@ -9,7 +9,6 @@ public interface CentroSaludService{
 	public void eliminarCentroSalud(CentroSalud centroSalud);
 	public List<CentroSalud> buscarTodos();
 	public CentroSalud buscarPorId(Long id);
-	public List<CentroSalud> buscarActivos();
 	public List<CentroSalud> buscarPorProvincia(String provincia);
 	public List<CentroSalud> buscarPorLocalidad(String localidad);
 	public List<CentroSalud> buscarPorNombre(String nombre);

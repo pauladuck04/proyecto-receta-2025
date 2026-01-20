@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class CitaServiceImpl implements CitaService{
 	}
 
 	public List<Cita> buscarPorFecha(LocalDateTime fecha) {
-		return citaDAO.findByFechaOrderByHoraInicioAsc(fecha);
+		return citaDAO.findByFechaHoraOrderByFechaHoraAsc(fecha);
 	}
 
 	public List<Cita> buscarActivos() {
@@ -80,11 +81,11 @@ public class CitaServiceImpl implements CitaService{
 	}
 
 	public List<Cita> buscarPorEstado(EstadoCita estado){
-		return citaDAO.findByEstado(estado);
+		return citaDAO.findByEstadoCita(estado);
 	}
 
 	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDateTime fecha){
-		List<Cita> citasExistentes = citaDAO.findByMedicoAndFechaOrderByHoraInicioAsc(medico, fecha);
+		List<Cita> citasExistentes = citaDAO.findByMedicoAndFechaHoraOrderByFechaHoraAsc(medico, fecha);
 		
 		List<Cita> filtradas = citasExistentes.stream()
 			.filter(c -> c.getEstadoCita().equals(EstadoCita.PLANIFICADA))

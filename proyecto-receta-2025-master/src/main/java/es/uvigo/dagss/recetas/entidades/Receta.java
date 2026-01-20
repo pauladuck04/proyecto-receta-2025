@@ -1,6 +1,6 @@
 package es.uvigo.dagss.recetas.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +14,8 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Receta {
-	@TableGenerator(name = "RECETA_GEN", table = "GENERATOR_TABLE", pkColumnName = "GEN_KEY",
-	valueColumnName = "GEN_VALUE", pkColumnValue = "RECETA_ID", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "RECETA_GEN")
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
 
@@ -25,29 +24,29 @@ public class Receta {
 	private Prescripcion prescripcion;
 
 	@NotNull
-	private Date fechaInicio;
+	private LocalDate fechaInicio;
 
 	@NotNull
-	private Date fechaFin;
+	private LocalDate fechaFin;
 
 	@NotNull
 	private int cantidad;
 
-	public enum EstadoReceta{
+	public enum estado{
 		PLANIFICADA,
 		SERVIDA,
 		ANULADA
 	}
 
 	@Enumerated(EnumType.STRING)
-	private EstadoReceta estado;
+	private estado estado;
 
 	@ManyToOne(targetEntity = Farmacia.class)
 	private Farmacia farmacia;
 
 	public Receta(){  }
 
-	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, EstadoReceta estado){
+	public Receta(Prescripcion prescripcion, LocalDate fechaInicio, LocalDate fechaFin, int cantidad, estado estado){
 		this.prescripcion = prescripcion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -56,7 +55,7 @@ public class Receta {
 		this.farmacia = null;
 	}
 	
-	public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, EstadoReceta estado, Farmacia farmacia){
+	public Receta(Prescripcion prescripcion, LocalDate fechaInicio, LocalDate fechaFin, int cantidad, estado estado, Farmacia farmacia){
 		this.prescripcion = prescripcion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -85,27 +84,27 @@ public class Receta {
 		this.cantidad = cantidad;
 	}
 
-	public Estado getEstado(){
+	public estado getEstado(){
 		return estado;
 	}
 
-	public void setEstado(EstadoReceta estado){
+	public void setEstado(estado estado){
 		this.estado = estado;
 	}
 
-	public Date getFechaInicio(){
+	public LocalDate getFechaInicio(){
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio){
+	public void setFechaInicio(LocalDate fechaInicio){
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFechaFin(){
+	public LocalDate getFechaFin(){
 		return fechaFin;
 	}
 
-	public void setFechaFin(Date fechaFin){
+	public void setFechaFin(LocalDate fechaFin){
 		this.fechaFin = fechaFin;
 	}
 
@@ -119,7 +118,7 @@ public class Receta {
 
 	@Override
     public String toString() {
-        return "Receta[" + "id=" + id + ", prescripcion=" + prescripcion + ", fecha de inicio=" + fechaInicio.toString() + ", fecha de fin=" + fechaFin.toString() + ", cantidad=" + cantidad 
+        return "Receta[" + "id=" + id + ", prescripcion=" + prescripcion + ", fecha de inicio=" + fechaInicio.toString() + ", fecha de fin=" + fechaFin.toString() + ", cantidad=" + cantidad
         + ", estado=" + estado + ", farmacia=" + farmacia + ']';
     }
 

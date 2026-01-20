@@ -1,16 +1,13 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
+
+import es.uvigo.dagss.recetas.daos.FarmaciaDAO;
 import es.uvigo.dagss.recetas.entidades.Prescripcion;
-import es.uvigo.dagss.recetas.entidades.Medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import es.uvigo.dagss.recetas.daos.PrescripcionDAO;
 import es.uvigo.dagss.recetas.daos.RecetaDAO;
-import es.uvigo.dagss.recetas.entidades.Receta;
-import es.uvigo.dagss.recetas.strategies.EstrategiaGeneracionRecetas;
-import java.time.LocalDate;
 
 
 @Service
@@ -21,19 +18,17 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 	@Autowired
     private RecetaDAO recetaDAO;
 
+    @Autowired
+    private FarmaciaDAO farmaciaDAO;
+
 	@Autowired
-    private EstrategiaGeneracionRecetas planRecetasStrategy;
+    private RecetaService recetaService;
 
 	public PrescripcionServiceImpl(){ }
 
-    public void crearPrescripcion(Prescripcion prescripcion, Medico medico) {
-        prescripcion.setMedico(medico);
-        prescripcion.setFechaInicio(LocalDate.now());
-        prescripcion.setActivo(true);
-        Prescripcion guardada = prescripcionDAO.save(prescripcion);
-        List<Receta> plan = planRecetasStrategy.generarRecetas(guardada);
-        
-		recetaDAO.saveAll(plan);
+    public void crearPrescripcion(Prescripcion prescripcion) {
+        Prescripcion nuevaPrescripcion = prescripcionDAO.save(prescripcion);
+        recetaService.generarPlanRecetas(nuevaPrescripcion);
     }
 
 	public void actualizarPrescripcion(Prescripcion prescripcion) {

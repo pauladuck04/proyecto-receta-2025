@@ -3,9 +3,9 @@ package es.uvigo.dagss.recetas.entidades;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@DiscriminatorValue(value = "ADMINISTRADOR")
 public class Administrador extends Usuario {
 
     @NotNull

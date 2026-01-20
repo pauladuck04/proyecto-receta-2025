@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface FarmaciaDAO extends JpaRepository<Farmacia, Long>{
 	List<Farmacia> findByNombreContainingIgnoreCase(String nombre);
 	List<Farmacia> findByDireccionLocalidadContainingIgnoreCase(String localidad);
-	List<Farmacia> findByProvinciaIgnoreCase(String provincia);
+	List<Farmacia> findByDireccionProvinciaIgnoreCase(String provincia);
 	Optional<Farmacia> findByLogin(String login);
 	List<Farmacia> findByActivoTrue();
 }

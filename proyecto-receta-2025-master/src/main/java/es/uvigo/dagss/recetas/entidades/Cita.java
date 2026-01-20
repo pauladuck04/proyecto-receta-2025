@@ -3,7 +3,10 @@ package es.uvigo.dagss.recetas.entidades;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,8 +23,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Cita implements Serializable {
 	@Id
-	@TableGenerator(name = "CITA_GEN", table = "CITA_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "CITA_GEN")
+    @JsonIgnore
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
@@ -41,6 +44,7 @@ public class Cita implements Serializable {
 	@NotNull
 	private EstadoCita estadoCita;
 
+    @JsonIgnore
 	@NotNull
 	private int duracion;
 
@@ -76,6 +80,7 @@ public class Cita implements Serializable {
 		this.medico = medico;
 	}
 
+    /*
 	public LocalDateTime getFechaHora(){
 		return fechaHora;
 	}
@@ -83,6 +88,7 @@ public class Cita implements Serializable {
 	public void setFechaHora(LocalDateTime fechaHora){
 		this.fechaHora = fechaHora;
 	}
+     */
 
 	public EstadoCita getEstadoCita(){
 		return estadoCita;
@@ -104,16 +110,16 @@ public class Cita implements Serializable {
 		return fechaHora.toLocalDate();
 	}
 
-	public void setFecha(LocalDate fechaHora){
-		this.fechaHora = fechaHora;
+	public void setFecha(LocalDate fecha){
+		this.fechaHora = LocalDateTime.of(fecha, this.fechaHora.toLocalTime());
 	}
 
 	public LocalTime getHora() {
 		return fechaHora.toLocalTime();
 	}
 
-	public void setHora(LocalTime fechaHora){
-		this.fechaHora = fechaHora;
+	public void setHora(LocalTime hora){
+		this.fechaHora = LocalDateTime.of(this.fechaHora.toLocalDate(), hora);
 	}
 
 	public Boolean isActivo(){
@@ -126,7 +132,9 @@ public class Cita implements Serializable {
 
 	@Override
     public String toString() {
-        return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha=" + fechaHora.toLocalDate().toString() + ", hora" + fechaHora.toLocalTime().toString() + ", estadoCita=" + estadoCita + ", duracion=" + duracion + ']';
+        return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha="
+                + fechaHora.toLocalDate().toString() + ", hora" + fechaHora.toLocalTime().toString()
+                + ", estadoCita=" + estadoCita + ", duracion=" + duracion + ']';
     }
 
 	@Override

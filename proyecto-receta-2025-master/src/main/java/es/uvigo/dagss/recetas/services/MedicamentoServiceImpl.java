@@ -3,6 +3,8 @@ package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import es.uvigo.dagss.recetas.entidades.Farmacia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import es.uvigo.dagss.recetas.daos.MedicamentoDAO;
@@ -71,4 +73,14 @@ public class MedicamentoServiceImpl implements MedicamentoService{
 			return medicamentoDAO.findAll();
 		}
 	}
+
+    // HU-F1: Método para obtener el "Home" de un medicamento
+    public String getMedicamentoHome(Long medicamentoId) {
+        Optional<Medicamento> medicamento = medicamentoDAO.findById(medicamentoId);
+        if (medicamento.isPresent()) {
+            return "Home de medicamento: " + medicamento.get().getNombreComercial();
+        } else {
+            throw new RuntimeException("Medicamento no encontrado");
+        }
+    }
 }

@@ -57,4 +57,14 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 			return farmaciaDAO.findAll();
 		}
 	}
+
+    // HU-F1: Método para obtener el "Home" de una farmacia
+    public String getFarmaciaHome(Long farmaciaId) {
+        Optional<Farmacia> farmacia = farmaciaDAO.findById(farmaciaId);
+        if (farmacia.isPresent()) {
+            return "Home de Farmacia: " + farmacia.get().getNombre();
+        } else {
+            throw new RuntimeException("Farmacia no encontrada");
+        }
+    }
 }

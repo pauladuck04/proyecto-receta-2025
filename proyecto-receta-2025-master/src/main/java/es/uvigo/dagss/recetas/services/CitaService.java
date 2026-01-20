@@ -4,6 +4,10 @@ import java.util.List;
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Medico;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import es.uvigo.dagss.recetas.entidades.Paciente;
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
 
 public interface CitaService{
 	public void actualizarCita(Cita cita);
@@ -17,5 +21,5 @@ public interface CitaService{
 	public List<Cita> buscarPorPaciente(Long pacienteId);
 	public void crearCita(Paciente paciente, LocalDateTime fechaHora);
 	public List<LocalTime> obtenerHuecosDisponibles(Medico medico, LocalDateTime fechaHora);
-	public List<Cita> buscarPorEstado(Estado estado);
+	public List<Cita> buscarPorEstado(EstadoCita estado);
 }
