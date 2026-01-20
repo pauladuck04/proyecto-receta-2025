@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,10 +43,6 @@ public class PacienteServiceImpl implements PacienteService{
         return pacienteDAO.findById(id).orElse(null);
     }
 
-	public List<Paciente> buscarTodos(){
-		return pacienteDAO.findAll();
-	}
-
 	public List<Paciente> buscarActivos() {
         return pacienteDAO.findByActivoTrue();
     }
@@ -58,18 +55,11 @@ public class PacienteServiceImpl implements PacienteService{
 		}
 	}
 
-	public List<Paciente> buscarPorCentroSalud(Long centroId){
-		if(centroId != null && centroId != 0){
-			return pacienteDAO.findByCentroSaludId(centroId);
-		}else{
-			return pacienteDAO.findAll();
-		}
-	}
-
-	public List<Paciente> buscarPorMedico(Long medicoId){
-		if(medicoId != null && medicoId != 0){
-			return pacienteDAO.findByMedicoId(medicoId);
-		}else{
+	public List<Paciente> buscarPorMedico(Long medicoId, Long centroId){
+        List<Paciente> pacientes = new ArrayList<>();
+        if(centroId != null && centroId != 0 && medicoId != null && medicoId != 0){
+            return pacienteDAO.findByCentroSaludIdAndMedicoId(centroId, medicoId);
+        } else{
 			return pacienteDAO.findAll();
 		}
 	}

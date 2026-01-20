@@ -11,7 +11,7 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long>{
 	List<Paciente> findByNombreContainingIgnoreCase(String nombre);
 	List<Paciente> findByDireccionLocalidadContainingIgnoreCase(String localidad);
 	List<Paciente> findByCentroSaludId(Long centroSaludId);
-	List<Paciente> findByMedicoId(Long medicoId);
+    List<Paciente> findByCentroSaludIdAndMedicoId(Long centroId, Long medicoId);
 	Optional<Paciente> findByDniContainingIgnoreCase(String dni);
 	Optional<Paciente> findByNssContainingIgnoreCase(String nss);
 	Optional<Paciente> findByLogin(String login);

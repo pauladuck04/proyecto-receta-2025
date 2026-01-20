@@ -7,11 +7,9 @@ public interface PacienteService{
 	public void crearPaciente(Paciente paciente);
 	public void actualizarPaciente(Paciente paciente);
 	public void eliminarPaciente(Paciente paciente);
-	public List<Paciente> buscarTodos();
 	public Paciente buscarPorId(Long id);
 	public List<Paciente> buscarActivos();
 	public List<Paciente> buscarPorNombre(String nombre);
-	public List<Paciente> buscarPorCentroSalud(Long centroSaludId);
-	public List<Paciente> buscarPorMedico(Long medicoId);
+	public List<Paciente> buscarPorMedico(Long medicoId, Long centroSaludId);
 	public List<Paciente> buscarPorLocalidad(String localidad);
 }

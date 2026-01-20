@@ -28,11 +28,7 @@ public class AdministradorServiceImpl implements AdministradorService{
 	}
 
 	public void actualizarAdministrador(Administrador administrador){
-		administradorDAO.save(administrador);
-	}
-
-	public List<Administrador> buscarTodos(){
-		return administradorDAO.findAll();
+        administradorDAO.save(administrador);
 	}
 
 	public Administrador buscarPorId(Long id){

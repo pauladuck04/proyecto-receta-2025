@@ -7,9 +7,9 @@ public interface MedicoService{
 	public void crearMedico(Medico medico);
 	public void actualizarMedico(Medico medico);
 	public void eliminarMedico(Medico medico);
-	public List<Medico> buscarTodos();
 	public Medico buscarPorId(Long id);
 	public List<Medico> buscarActivos();
 	public List<Medico> buscarPorNombre(String nombre);
 	public List<Medico> buscarPorLocalidad(String localidad);
+    public List<Medico> buscarPorCentroSalud(Long centroId);
 }

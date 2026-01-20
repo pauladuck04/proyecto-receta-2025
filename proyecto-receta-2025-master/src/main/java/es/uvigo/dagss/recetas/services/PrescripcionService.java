@@ -13,4 +13,5 @@ public interface PrescripcionService{
 	public List<Prescripcion> buscarActivos();
 	public List<Prescripcion> buscarPorMedico(Long medicoId);
 	public List<Prescripcion> buscarPorPaciente(Long pacienteId);
+    public void anularPrescripcion(Long prescripcionId);
 }

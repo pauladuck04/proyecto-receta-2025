@@ -9,6 +9,7 @@ import es.uvigo.dagss.recetas.utils.ValidationUtils;
 @Entity
 public class CentroSalud{
 	@Id
+    @JsonIgnore
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	

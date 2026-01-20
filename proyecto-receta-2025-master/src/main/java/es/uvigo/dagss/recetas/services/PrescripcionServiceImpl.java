@@ -1,9 +1,11 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import es.uvigo.dagss.recetas.daos.FarmaciaDAO;
 import es.uvigo.dagss.recetas.entidades.Prescripcion;
+import es.uvigo.dagss.recetas.entidades.Receta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import es.uvigo.dagss.recetas.daos.PrescripcionDAO;
@@ -66,4 +68,21 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 			return prescripcionDAO.findAll();
 		}
 	}
+
+    public void anularPrescripcion(Long prescripcionId) {
+        Optional<Prescripcion> prescripcionOpt = prescripcionDAO.findById(prescripcionId);
+        if (prescripcionOpt.isPresent()) {
+            Prescripcion prescripcion = prescripcionOpt.get();
+            prescripcion.setActivo(false);
+            prescripcionDAO.save(prescripcion);
+
+            List<Receta> recetas = recetaService.generarPlanRecetas(prescripcion);
+            for (Receta receta : recetas) {
+                receta.setEstado(Receta.estado.ANULADA);
+                recetaDAO.save(receta);
+            }
+        } else {
+            throw new RuntimeException("Prescripción no encontrada");
+        }
+    }
 }

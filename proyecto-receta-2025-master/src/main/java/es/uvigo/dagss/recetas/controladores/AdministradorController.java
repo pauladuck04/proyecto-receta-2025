@@ -34,13 +34,8 @@ public class AdministradorController{
 
 	@GetMapping
 	public List<Administrador> listarAdministradores(){
-		return administradorService.buscarTodos();
+		return administradorService.buscarActivos();
 	}
-
-    @GetMapping(path = "/activos")
-    public List<Administrador> buscarAdministradoresActivos() {
-        return this.administradorService.buscarActivos();
-    }
 
     @GetMapping("/{id}")
     public Administrador buscarAdministradorPorId(@PathVariable Long id){
@@ -69,8 +64,6 @@ public class AdministradorController{
 
     @DeleteMapping("/{id}")
     public void eliminarAdministrador(@PathVariable Long id){
-        Administrador admin = administradorService.buscarPorId(id);
-        admin.setActivo(false);
-        administradorService.actualizarAdministrador(admin);
+        administradorService.eliminarAdministrador(administradorService.buscarPorId(id));
     }
 }
