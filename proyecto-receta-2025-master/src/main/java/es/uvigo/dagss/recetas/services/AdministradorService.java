@@ -4,9 +4,9 @@ import es.uvigo.dagss.recetas.entidades.Administrador;
 import java.util.List;
 
 public interface AdministradorService{
-	public void crearAdministrador(Administrador administrador);
-	public void actualizarAdministrador(Administrador administrador);
-	public void eliminarAdministrador(Administrador administrador);
-	public Administrador buscarPorId(Long id);
-	public List<Administrador> buscarActivos();
+	void crearAdministrador(Administrador administrador);
+	void actualizarAdministrador(Administrador administrador);
+	void eliminarAdministrador(Administrador administrador);
+	Administrador buscarPorId(Long id);
+	List<Administrador> buscarActivos();
 }

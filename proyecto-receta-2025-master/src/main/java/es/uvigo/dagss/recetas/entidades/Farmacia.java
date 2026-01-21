@@ -7,8 +7,11 @@ import es.uvigo.dagss.recetas.utils.ValidationUtils;
 import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.NotNull;
 
-import es.uvigo.dagss.recetas.entidades.Usuario;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @DiscriminatorValue(value = "FARMACIA")
 public class Farmacia extends Usuario {
@@ -20,29 +23,23 @@ public class Farmacia extends Usuario {
     @NotNull
     private Direccion direccion;
 
-    @JsonIgnore
     @NotNull
     private String telefono;
 
-    @JsonIgnore
     @NotNull
     private String email;
 
-    @JsonIgnore
     @NotNull
     private String dni;
 
-    @JsonIgnore
     @NotNull
     private String nombreFarmaceutico;
 
-    @JsonIgnore
     @NotNull
     private String apellidosFarmaceutico;
 
-    @JsonIgnore
     @NotNull
-    private String numero_colegiado;
+    private String numeroColegiado;
 
     public Farmacia() {
         super(TipoUsuario.FARMACIA);
@@ -58,27 +55,7 @@ public class Farmacia extends Usuario {
         this.nombreFarmaceutico = nombreFarmaceutico;
         this.apellidosFarmaceutico = apellidosFarmaceutico;
         this.dni = dni;
-        this.numero_colegiado = numeroColegiado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
+        this.numeroColegiado = numeroColegiado;
     }
 
     public void setTelefono(String telefono){
@@ -87,26 +64,10 @@ public class Farmacia extends Usuario {
         }
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         if(ValidationUtils.validarEmail(email)){
             this.email = email;
         }
-    }
-
-    public String getNombreFarmaceutico() {
-        return nombreFarmaceutico;
-    }
-
-    public void setNombreFarmaceutico(String nombreFarmaceutico) {
-        this.nombreFarmaceutico = nombreFarmaceutico;
-    }
-
-    public String getDni() {
-        return dni;
     }
 
     public void setDni(String dni) {
@@ -115,23 +76,7 @@ public class Farmacia extends Usuario {
         }
     }
 
-    public String getNumeroColegiado() {
-        return numero_colegiado;
-    }
-
-    public void setNumeroColegiado(String numeroColegiado) {
-        this.numero_colegiado = numeroColegiado;
-    }
-
-    public String getApellidosFarmaceutico() {
-        return apellidosFarmaceutico;
-    }
-
-    public void setApellidosFarmaceutico(String apellidosFarmaceutico) {
-        this.apellidosFarmaceutico = apellidosFarmaceutico;
-    }
-
-	public Boolean isActivo() {
+    public Boolean isActivo() {
 		return super.isActivo();
 	}
 
@@ -139,6 +84,6 @@ public class Farmacia extends Usuario {
     public String toString() {
         return super.toString() + "farmacia [nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
                 + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + dni
-                + ", numeroColegiado=" + numero_colegiado + "]";
+                + ", numeroColegiado=" + numeroColegiado + "]";
     }
 }

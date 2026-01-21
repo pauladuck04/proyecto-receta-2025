@@ -1,8 +1,8 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
-import java.util.Optional;
 
+import es.uvigo.dagss.recetas.daos.RecetaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,9 @@ import es.uvigo.dagss.recetas.entidades.Farmacia;
 public class FarmaciaServiceImpl implements FarmaciaService{
 	@Autowired
 	private FarmaciaDAO farmaciaDAO;
+
+    @Autowired
+    private RecetaDAO recetaDAO;
 
 	public FarmaciaServiceImpl(){ }
 
@@ -30,10 +33,6 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 	public void actualizarFarmacia(Farmacia farmacia){
 		farmaciaDAO.save(farmacia);
 	}
-
-	public List<Farmacia> buscarTodos() {
-        return farmaciaDAO.findAll();
-    }
 
     public Farmacia buscarPorId(Long id) {
         return farmaciaDAO.findById(id).orElse(null);
@@ -58,13 +57,4 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 		}
 	}
 
-    // HU-F1: Método para obtener el "Home" de una farmacia
-    public String getFarmaciaHome(Long farmaciaId) {
-        Optional<Farmacia> farmacia = farmaciaDAO.findById(farmaciaId);
-        if (farmacia.isPresent()) {
-            return "Home de Farmacia: " + farmacia.get().getNombre();
-        } else {
-            throw new RuntimeException("Farmacia no encontrada");
-        }
-    }
 }

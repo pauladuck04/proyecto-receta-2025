@@ -1,14 +1,11 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
-import java.util.Optional;
 
-import es.uvigo.dagss.recetas.entidades.Farmacia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.AdministradorDAO;
-import es.uvigo.dagss.recetas.services.AdministradorService;
 import es.uvigo.dagss.recetas.entidades.Administrador;
 
 @Service

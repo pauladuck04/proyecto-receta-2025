@@ -1,16 +1,20 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue(value = "MEDICO")
 public class Medico extends Usuario {
@@ -24,20 +28,19 @@ public class Medico extends Usuario {
     @NotNull
     private String apellidos;
 
-    @JsonIgnore
     @NotNull
     private String telefono;
 
-    @JsonIgnore
     @NotNull
     private String email;
 
-    @JsonIgnore
     @NotNull
     private String dni;
 
     @ManyToOne(targetEntity = CentroSalud.class)
     @NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private CentroSalud centroSalud;
 
     @Embedded
@@ -85,16 +88,8 @@ public class Medico extends Usuario {
         return numeroColegiado;
     }
 
-    public void setNumeroColegiado(String numeroColegiado) {
-        this.numeroColegiado = numeroColegiado;
-    }
-
     public String getApellidos(){
         return apellidos;
-    }
-
-    public void setApellidos(String apellidos){
-        this.apellidos = apellidos;
     }
 
     public String getEmail() {
@@ -111,16 +106,8 @@ public class Medico extends Usuario {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public CentroSalud getCentroSalud() {
         return centroSalud;
-    }
-
-    public void setCentroSalud(CentroSalud centroSalud) {
-        this.centroSalud = centroSalud;
     }
 
     public Direccion getDireccion() {
@@ -133,10 +120,6 @@ public class Medico extends Usuario {
 
     public Boolean getActivo() {
         return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
     }
 
     @Override

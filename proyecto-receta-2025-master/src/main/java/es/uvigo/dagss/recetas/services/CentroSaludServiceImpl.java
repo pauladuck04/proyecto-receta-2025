@@ -15,10 +15,6 @@ public class CentroSaludServiceImpl implements CentroSaludService{
 
 	public CentroSaludServiceImpl(){ }
 
-	public List<CentroSalud> buscarTodos() {
-        return centroSaludDAO.findAll();
-    }
-
 	public CentroSalud buscarPorId(Long id) {
         return centroSaludDAO.findById(id).orElse(null);
     }

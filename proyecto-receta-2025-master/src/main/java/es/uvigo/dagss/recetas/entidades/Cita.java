@@ -2,11 +2,13 @@ package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,11 +17,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.TableGenerator;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Cita implements Serializable {
 
@@ -29,17 +32,20 @@ public class Cita implements Serializable {
     public static final int NUMERO_HUECOS = (MINUTOS_CIERRE - MINUTOS_APERTURA) / MINUTOS_HUECO;
 
     @Id
-    @JsonIgnore
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "paciente_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
 	private Paciente paciente;
 
 	@ManyToOne
 	@NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
 	@JoinColumn(name = "medico_id")
 	private Medico medico;
 
@@ -50,10 +56,10 @@ public class Cita implements Serializable {
 	@NotNull
 	private EstadoCita estadoCita;
 
-    @JsonIgnore
 	@NotNull
 	private int duracion;
 
+    @NotNull
 	private Boolean activo = true;
 
 	public Cita() { }
@@ -66,51 +72,7 @@ public class Cita implements Serializable {
 		this.duracion = duracion;
 	}
 
-	public Long getId(){
-		return id;
-	}
-
-    public LocalDateTime getFechaHora(){
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora){
-        this.fechaHora = fechaHora;
-    }
-
-	public Paciente getPaciente(){
-		return paciente;
-	}
-
-	public void setPaciente(Paciente paciente){
-		this.paciente = paciente;
-	}
-
-	public Medico getMedico(){
-		return medico;
-	}
-
-	public void setMedico(Medico medico){
-		this.medico = medico;
-	}
-
-	public EstadoCita getEstadoCita(){
-		return estadoCita;
-	}
-
-	public void setEstadoCita(EstadoCita estadoCita){
-		this.estadoCita = estadoCita;
-	}
-
-	public int getDuracion(){
-		return duracion;
-	}
-
-	public void setDuracion(int duracion){
-		this.duracion = duracion;
-	}
-
-	public LocalDate getFecha(){
+    public LocalDate getFecha(){
 		return fechaHora.toLocalDate();
 	}
 
@@ -130,11 +92,7 @@ public class Cita implements Serializable {
 		return activo;
 	}
 
-	public void setActivo(Boolean activo){
-		this.activo = activo;
-	}
-
-	@Override
+    @Override
     public String toString() {
         return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha="
                 + fechaHora.toLocalDate().toString() + ", hora" + fechaHora.toLocalTime().toString()

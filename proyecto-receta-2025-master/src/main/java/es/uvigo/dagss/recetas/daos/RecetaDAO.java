@@ -13,6 +13,6 @@ public interface RecetaDAO extends JpaRepository<Receta, Long> {
 	List<Receta> findByPrescripcionId(Long prescripcionId);
 	List<Receta> findByPrescripcionPacienteId(Long pacienteId);
 	List<Receta> findByEstado(estado estadoReceta);
-	List<Receta> findByPrescripcionPacienteNss(String nss);
+	List<Receta> findByEstadoAndPrescripcionPacienteNss(estado estado, String nss);
     List<Receta> findByPrescripcionMedicoId(Long medicoId);
 }

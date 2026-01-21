@@ -1,6 +1,5 @@
 package es.uvigo.dagss.recetas.services;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.CitaDAO;
 import es.uvigo.dagss.recetas.daos.MedicoDAO;
-import es.uvigo.dagss.recetas.entidades.Cita;
-import es.uvigo.dagss.recetas.entidades.CentroSalud;
 import es.uvigo.dagss.recetas.entidades.Medico;
 
 @Service
@@ -21,10 +18,6 @@ public class MedicoServiceImpl implements MedicoService{
 	private CitaDAO citaDAO;
 
 	public MedicoServiceImpl(){ }
-
-	public List<Medico> buscarTodos(){
-		return medicoDAO.findAll();
-	}
 
 	public Medico buscarPorId(Long id){
 		return medicoDAO.findById(id).orElse(null);

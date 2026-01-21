@@ -2,16 +2,16 @@ package es.uvigo.dagss.recetas.entidades;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.TableGenerator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Receta {
 
@@ -19,17 +19,19 @@ public class Receta {
 	@Id
 	private Long id;
 
-	@ManyToOne(targetEntity = Prescripcion.class)
+    @ManyToOne(targetEntity = Prescripcion.class)
 	@NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
 	private Prescripcion prescripcion;
 
-	@NotNull
+    @NotNull
 	private LocalDate fechaInicio;
 
-	@NotNull
+    @NotNull
 	private LocalDate fechaFin;
 
-	@NotNull
+    @NotNull
 	private int cantidad;
 
 	public enum estado{
@@ -38,10 +40,12 @@ public class Receta {
 		ANULADA
 	}
 
-	@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
 	private estado estado;
 
-	@ManyToOne(targetEntity = Farmacia.class)
+    @ManyToOne(targetEntity = Farmacia.class)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
 	private Farmacia farmacia;
 
 	public Receta(){  }
@@ -72,79 +76,29 @@ public class Receta {
 		return prescripcion;
 	}
 
-	public void setPrescripcion(Prescripcion prescripcion){
-		this.prescripcion = prescripcion;
-	}
-
-	public int getCantidad(){
+    public int getCantidad(){
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad){
-		this.cantidad = cantidad;
-	}
-
-	public estado getEstado(){
+    public estado getEstado(){
 		return estado;
 	}
 
-	public void setEstado(estado estado){
-		this.estado = estado;
-	}
-
-	public LocalDate getFechaInicio(){
+    public LocalDate getFechaInicio(){
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(LocalDate fechaInicio){
-		this.fechaInicio = fechaInicio;
-	}
-
-	public LocalDate getFechaFin(){
+    public LocalDate getFechaFin(){
 		return fechaFin;
 	}
 
-	public void setFechaFin(LocalDate fechaFin){
-		this.fechaFin = fechaFin;
-	}
-
-	public Farmacia getFarmacia(){
+    public Farmacia getFarmacia(){
 		return farmacia;
 	}
 
-	public void setFarmacia(Farmacia farmacia){
-		this.farmacia = farmacia;
-	}
-
-	@Override
+    @Override
     public String toString() {
         return "Receta[" + "id=" + id + ", prescripcion=" + prescripcion + ", fecha de inicio=" + fechaInicio.toString() + ", fecha de fin=" + fechaFin.toString() + ", cantidad=" + cantidad
         + ", estado=" + estado + ", farmacia=" + farmacia + ']';
-    }
-
-	@Override
-    public int hashCode() {
-        if (this.id != null) {
-            return this.id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Receta other = (Receta) obj;
-        if (this.id != null) {
-            return this.id.equals(other.getId());
-        }
-        return super.equals(obj);
     }
 }

@@ -2,31 +2,22 @@ package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import es.uvigo.dagss.recetas.utils.ValidationUtils;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.cglib.core.Local;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
 public abstract class Usuario implements Serializable {
 
     @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
-    @TableGenerator(
-            name = "USUARIO_GEN",
-            table = "GENERADOR_IDS",          // Nombre de la tabla de control
-            pkColumnName = "NOMBRE_CONTADOR",
-            valueColumnName = "VALOR_ACTUAL",
-            pkColumnValue = "USUARIO_ID",      // Fila específica para esta jerarquía
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
+    @SequenceGenerator(name = "usuario_seq", sequenceName = "USUARIO_SEQUENCE", allocationSize = 1)
     private Long id;
 
     @Transient
@@ -39,7 +30,6 @@ public abstract class Usuario implements Serializable {
     private String login;
 
     @NotNull
-    @JsonIgnore
     private String password;
 
     @NotNull
@@ -69,52 +59,28 @@ public abstract class Usuario implements Serializable {
         this.password = password;
     }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
+    public void setId(Long id) {
 		this.id = id;
 	}
 
-	public LocalDate getFechaAlta() {
-		return fechaAlta;
-	}
-
-	public void setFechaAlta(LocalDate fechaAlta) {
+    public void setFechaAlta(LocalDate fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public LocalDate getUltimoAcceso() {
-		return ultimoAcceso;
-	}
-
-	public void setUltimoAcceso(LocalDate ultimoAcceso) {
+    public void setUltimoAcceso(LocalDate ultimoAcceso) {
 		this.ultimoAcceso = ultimoAcceso;
 	}
 
 
-	public TipoUsuario getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoUsuario tipo) {
+    public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
+    public void setLogin(String login) {
 		this.login = login;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
+    public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -133,28 +99,6 @@ public abstract class Usuario implements Serializable {
     public void desactivar() {
         this.activo = false;
     }
-
-	@Override
-	public int hashCode() {
-		if (this.id !=null)
-			return Objects.hash(id);
-		return Objects.hash(fechaAlta, login);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (this.id !=null)
-			return this.id.equals(other.getId());
-		return Objects.equals(fechaAlta, other.fechaAlta)
-				&& Objects.equals(login, other.login);
-	}
 
 	@Override
 	public String toString(){

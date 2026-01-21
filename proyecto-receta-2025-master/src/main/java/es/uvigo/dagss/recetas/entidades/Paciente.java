@@ -1,35 +1,39 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.NotNull;
 import es.uvigo.dagss.recetas.utils.ValidationUtils;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @DiscriminatorValue(value = "PACIENTE")
 public class Paciente extends Usuario {
 
-	@JsonIgnore
     @NotNull
     private String telefono;
 
-    @JsonIgnore
     @NotNull
     private String dni;
 
-    @JsonIgnore
     @NotNull
     private String nss;
 
-    @JsonIgnore
     @NotNull
     @ManyToOne(targetEntity = Medico.class)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Medico medico;
 
-    @JsonIgnore
     @NotNull
     private String email;
 
@@ -42,6 +46,8 @@ public class Paciente extends Usuario {
 
     @ManyToOne(targetEntity = CentroSalud.class)
     @NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private CentroSalud centroSalud;
    
     public Paciente() {
@@ -84,10 +90,6 @@ public class Paciente extends Usuario {
         return direccion;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
     public String getDni() {
         return dni;
     }
@@ -100,10 +102,6 @@ public class Paciente extends Usuario {
 
     public String getNss() {
         return nss;
-    }
-
-    public void setNss(String nss) {
-        this.nss = nss;
     }
 
     public String getEmail(){
@@ -120,16 +118,8 @@ public class Paciente extends Usuario {
         return nombre;
     }
 
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
-
     public CentroSalud getCentroSalud() {
         return centroSalud;
-    }
-
-    public void setCentroSalud(CentroSalud centroSalud) {
-        this.centroSalud = centroSalud;
     }
 
     @Override

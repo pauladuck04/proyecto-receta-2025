@@ -1,36 +1,43 @@
 package es.uvigo.dagss.recetas.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.TableGenerator;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-
+@Getter
 @Entity
+@Setter
 public class Prescripcion {
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
     @ManyToOne(targetEntity = Medicamento.class)
     @NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Medicamento medicamento;
 
     @ManyToOne(targetEntity = Paciente.class)
     @NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Paciente paciente;
 
     @ManyToOne(targetEntity = Medico.class)
     @NotNull
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Medico medico;
 
     @NotNull
@@ -69,95 +76,37 @@ public class Prescripcion {
         return medicamento;
     }
 
-    public void setMedicamento(Medicamento medicamento) {
-        this.medicamento = medicamento;
-    }
-
     public Paciente getPaciente() {
         return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
     }
 
     public Medico getMedico() {
         return medico;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
     public String getIndicaciones() {
         return indicaciones;
-    }
-
-    public void setIndicaciones(String indicaciones) {
-        this.indicaciones = indicaciones;
     }
 
     public int getDosis() {
         return dosis;
     }
 
-    public void setDosis(int dosis) {
-        this.dosis = dosis;
-    }
-
     public LocalDate getFechaInicio() {
         return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
     }
 
     public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
     public boolean isActivo(){
         return activo;
-    }
-
-    public void setActivo(boolean activo){
-        this.activo = activo;
     }
 
     @Override
     public String toString() {
         return "Prescripcion[" + "id=" + id + ", medicamento=" + medicamento + ", paciente=" + paciente + ", medico=" + medico + ", indicaciones=" + indicaciones 
         + ", dosis=" + dosis + ", fecha de inicio=" + fechaInicio.toString() + ",fechaFin=" + fechaFin.toString() + ']';
-    }
-
-		@Override
-    public int hashCode() {
-        if (this.id != null) {
-            return this.id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Prescripcion other = (Prescripcion) obj;
-        if (this.id != null) {
-            return this.id.equals(other.getId());
-        }
-        return super.equals(obj);
     }
 }

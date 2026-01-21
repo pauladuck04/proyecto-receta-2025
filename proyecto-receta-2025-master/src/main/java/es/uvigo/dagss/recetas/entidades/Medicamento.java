@@ -6,11 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import jakarta.persistence.TableGenerator;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Medicamento{
-	@JsonIgnore
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,18 +26,17 @@ public class Medicamento{
 	@NotNull
 	private String familia;
 
-    @JsonIgnore
 	@NotNull
 	private int dosis;
 
-    @JsonIgnore
 	@NotNull
 	private int existencias;
 
 	@NotNull
 	private String fabricante;
 
-	private boolean activo = true;
+    @NotNull
+    private boolean activo = true;
 
 	public Medicamento(){ }
 
@@ -56,86 +57,32 @@ public class Medicamento{
 		return fabricante;
 	}
 
-	public void setFabricante(String fabricante){
-		this.fabricante = fabricante;
-	}
-
-	public String getNombreComercial(){
+    public String getNombreComercial(){
 		return nombreComercial;
 	}
 
-	public void setNombreComercial(String nombreComercial){
-		this.nombreComercial = nombreComercial;
-	}
-
-	public String getPrincipioActivo(){
+    public String getPrincipioActivo(){
 		return principioActivo;
 	}
 
-	public void setPrincipioActivo(String principioActivo){
-		this.principioActivo = principioActivo;
-	}
-
-	public String getFamilia(){
+    public String getFamilia(){
 		return familia;
 	}
 
-	public void setFamilia(String familia){
-		this.familia = familia;
-	}
-
-	public int getDosis(){
+    public int getDosis(){
 		return dosis;
 	}
 
-	public void setDosis(int dosis){
-		this.dosis = dosis;
-	}
-
-	public int getExistencias(){
+    public int getExistencias(){
 		return existencias;
 	}
 
-	public void setExistencias(int existencias){
-		this.existencias = existencias;
-	}
-
-	public boolean isActivo(){
+    public boolean isActivo(){
 		return activo;
 	}
 
-	public void setActivo(boolean activo){
-		this.activo = activo;
-	}
-
-	@Override
+    @Override
     public String toString() {
         return "Medicamento[" + "id=" + id + ", nombreComercial=" + nombreComercial + ", principioActivo=" + principioActivo + ", familia=" + familia + ", dosis=" + dosis + ", existencias=" + existencias + ']';
-    }
-
-		@Override
-    public int hashCode() {
-        if (this.id != null) {
-            return this.id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Medicamento other = (Medicamento) obj;
-        if (this.id != null) {
-            return this.id.equals(other.getId());
-        }
-        return super.equals(obj);
     }
 }
