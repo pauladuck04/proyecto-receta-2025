@@ -22,7 +22,13 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cita implements Serializable {
-	@Id
+
+    public static final int MINUTOS_APERTURA = 8*60+30;
+    public static final int MINUTOS_CIERRE = 15*60+30;
+    public static final int MINUTOS_HUECO = 15;
+    public static final int NUMERO_HUECOS = (MINUTOS_CIERRE - MINUTOS_APERTURA) / MINUTOS_HUECO;
+
+    @Id
     @JsonIgnore
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -64,6 +70,14 @@ public class Cita implements Serializable {
 		return id;
 	}
 
+    public LocalDateTime getFechaHora(){
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora){
+        this.fechaHora = fechaHora;
+    }
+
 	public Paciente getPaciente(){
 		return paciente;
 	}
@@ -79,16 +93,6 @@ public class Cita implements Serializable {
 	public void setMedico(Medico medico){
 		this.medico = medico;
 	}
-
-    /*
-	public LocalDateTime getFechaHora(){
-		return fechaHora;
-	}
-
-	public void setFechaHora(LocalDateTime fechaHora){
-		this.fechaHora = fechaHora;
-	}
-     */
 
 	public EstadoCita getEstadoCita(){
 		return estadoCita;
@@ -135,32 +139,6 @@ public class Cita implements Serializable {
         return "Cita[" + "id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha="
                 + fechaHora.toLocalDate().toString() + ", hora" + fechaHora.toLocalTime().toString()
                 + ", estadoCita=" + estadoCita + ", duracion=" + duracion + ']';
-    }
-
-	@Override
-    public int hashCode() {
-        if (this.id != null) {
-            return this.id.hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Cita other = (Cita) obj;
-        if (this.id != null) {
-            return this.id.equals(other.getId());
-        }
-        return super.equals(obj);
     }
 
 }

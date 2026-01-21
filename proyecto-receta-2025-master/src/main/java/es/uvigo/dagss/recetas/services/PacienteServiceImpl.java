@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import es.uvigo.dagss.recetas.entidades.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.CitaDAO;
 import es.uvigo.dagss.recetas.daos.PacienteDAO;
-import es.uvigo.dagss.recetas.entidades.CentroSalud;
-import es.uvigo.dagss.recetas.entidades.Cita;
-import es.uvigo.dagss.recetas.entidades.Medico;
-import es.uvigo.dagss.recetas.entidades.Paciente;
 
 @Service
 public class PacienteServiceImpl implements PacienteService{
@@ -71,4 +68,13 @@ public class PacienteServiceImpl implements PacienteService{
 			return pacienteDAO.findAll();
 		}
 	}
+
+    public List<Cita> buscarCitasPlanificadas(Long pacienteId) {
+        Optional<Paciente> paciente = pacienteDAO.findById(pacienteId);
+        if (paciente.isPresent()) {
+            return citaDAO.findByPacienteAndEstadoCita(paciente.get(), EstadoCita.PLANIFICADA);
+        } else {
+            throw new RuntimeException("Paciente no encontrado");
+        }
+    }
 }

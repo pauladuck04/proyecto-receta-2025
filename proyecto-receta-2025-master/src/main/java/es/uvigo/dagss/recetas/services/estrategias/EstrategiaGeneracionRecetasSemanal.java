@@ -39,7 +39,7 @@ public class EstrategiaGeneracionRecetasSemanal implements EstrategiaGeneracionR
             fechaActual = fechaActual.plusDays(dosisPorEnvase / dosisDiaria);
             LocalDate fechaFin = fechaActual;
 
-            // Margen semanal: �7 d�as
+            // Margen semanal: +- 7 dias
             LocalDate fechaValidezInicio = fechaInicio.minusDays(7);
             LocalDate fechaValidezFin = fechaFin.plusDays(7);
 

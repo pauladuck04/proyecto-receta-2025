@@ -1,6 +1,8 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
+
+import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 public interface PacienteService{
@@ -12,4 +14,5 @@ public interface PacienteService{
 	public List<Paciente> buscarPorNombre(String nombre);
 	public List<Paciente> buscarPorMedico(Long medicoId, Long centroSaludId);
 	public List<Paciente> buscarPorLocalidad(String localidad);
+    public List<Cita> buscarCitasPlanificadas(Long pacienteId);
 }

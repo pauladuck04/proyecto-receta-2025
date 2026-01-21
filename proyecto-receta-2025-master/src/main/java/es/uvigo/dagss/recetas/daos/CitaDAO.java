@@ -20,6 +20,8 @@ public interface CitaDAO extends JpaRepository<Cita, Long> {
 	List<Cita> findByMedicoAndFechaHoraOrderByFechaHoraAsc(Medico medico, LocalDateTime fechaHora);
 	List<Cita> findByMedicoId(Long medicoId);
 	List<Cita> findByPacienteId(Long pacienteId);
-	List<Cita> findByEstadoCita(EstadoCita estado);
 	List<Cita> findByActivoTrue();
+    List<Cita> findByPacienteAndEstadoCita(Paciente paciente, EstadoCita estadoCita);
+    List<Cita> findByEstadoCita(EstadoCita estadoCita);
+    List <Cita> findByMedicoAndFechaHoraBetweenAndEstadoCita(Medico medico, LocalDateTime inicio, LocalDateTime fin, EstadoCita estadoCita);
 }
